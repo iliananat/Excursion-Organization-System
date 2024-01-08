@@ -4,13 +4,18 @@ import javax.persistence.*;
 
 @Entity
 public class Citizen extends User{
-	@Id
-	private String afm;
+
 	private String first_name;
 	private String last_name;
 	private String email;
-	private String password;
 	
+	public Citizen(String afm, String password, String first_name, String last_name, String email) {
+		super(afm, password);
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+	}
+
 	
 	@Override
 	public void register() {
