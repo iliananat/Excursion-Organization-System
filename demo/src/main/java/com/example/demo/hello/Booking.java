@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 public class Booking {
 	private ArrayList<Trip> trips;
 	
+	public Booking(){}
+	
 	public Booking(ArrayList<Trip> t) {
 		trips = t;
 	}

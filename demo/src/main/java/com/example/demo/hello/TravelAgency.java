@@ -9,6 +9,7 @@ public class TravelAgency extends User{
 	private String name;
 	private String owner;
 	
+	public TravelAgency(){}
 	
 	public TravelAgency(String afm, String password, String name, String owner) {
 		super(afm, password);

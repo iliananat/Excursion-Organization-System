@@ -12,6 +12,11 @@ public class HelloController {
 	@Autowired
 	private HelloService hs;
 	
+	@PostMapping(path="/addTrip")
+	public void addTrip(@RequestBody Trip t) throws Exception {
+		hs.addTrip(t);
+	}
+	
 //	@GetMapping(path="/students")
 //	public List<Student> getAllStudent()  throws Exception{
 //		return hs.getAllStudents();

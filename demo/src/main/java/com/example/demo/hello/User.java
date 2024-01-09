@@ -7,12 +7,13 @@ public abstract class User {
 	protected String afm;
 	protected String password;
 	
+	public User(){}
+	
 	public User (String afm, String password) {
 		this.afm = afm;
 		this.password = password;
 	}
 	
-
 	
 	public abstract void register();
 	

@@ -9,6 +9,8 @@ public class Citizen extends User{
 	private String last_name;
 	private String email;
 	
+	public Citizen(){}
+	
 	public Citizen(String afm, String password, String first_name, String last_name, String email) {
 		super(afm, password);
 		this.first_name = first_name;

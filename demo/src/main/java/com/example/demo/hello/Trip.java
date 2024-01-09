@@ -16,6 +16,8 @@ public class Trip {
 	private String schedule;
 	private String maxNumOfParticipants;
 
+	public Trip(){}
+	
 	public Trip(TravelAgency travelAgency, LocalDate startDate, LocalDate endDate, String depLocation,
 			String destLocation, String schedule, String maxNumOfParticipants) {
 		this.travelAgency = travelAgency;
