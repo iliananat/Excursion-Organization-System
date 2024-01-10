@@ -60,8 +60,8 @@ public class Trip {
 		return bookedSeats;
 	}
 
-	public void setBookedSeats(int availableSeats) {
-		this.availableSeats = availableSeats;
+	public void setBookedSeats(int bookedSeats) {
+		this.bookedSeats = bookedSeats;
 	}
 
 	public String getMaxNumOfParticipants() {
