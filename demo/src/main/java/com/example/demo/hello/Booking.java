@@ -8,11 +8,18 @@ import javax.persistence.Entity;
 @Entity
 public class Booking {
 	private ArrayList<Trip> trips;
+	private Citizen citizenBooked;
+	private Trip tripBooked;
 	
 	public Booking(){}
 	
 	public Booking(ArrayList<Trip> t) {
 		trips = t;
+	}
+	
+	public Booking(Trip tripBooked, Citizen citizenBooked) {
+		this.tripBooked = tripBooked;
+		this.citizenBooked = citizenBooked;
 	}
 	
 	
@@ -64,5 +71,14 @@ public class Booking {
 		}
 		return temp;
 	}
+
+	public Trip getTrip() {
+		return tripBooked;
+	}
+	
+	public Citizen getBookedCitizen() {
+		return citizenBooked;
+	}
+
 	
 }

@@ -1,5 +1,7 @@
 package com.example.demo.hello;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +30,28 @@ public class HelloController {
         TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
         hs.registerUser(travelAgency);
     }
+    
+    @PostMapping(path = "/login")
+    public void login(@RequestBody Map<String, String> loginRequest) throws Exception{
+        String afm = loginRequest.get("afm");
+        String password = loginRequest.get("password");
+        
+        if (hs.login(afm, password)) {
+            System.out.println("Logged in successfully!");
+        } else {
+            System.out.println("Wrong AFM or Password!");
+        }
+    }
+    
+    @PostMapping("/book")
+    public void bookTrip(@RequestBody Booking b, int numOfPeopleBooked) throws Exception{
+    	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
+    	boolean bookingResult = hs.bookTrip(booking.getTrip().getID(), numOfPeopleBooked);
+        if (bookingResult) {
+            System.out.println("Trip booked successfully");
+        } else {
+        	System.out.println("Booking failed. No available seats or trip not found.");
+        }
+    }
 	
-//	@GetMapping(path="/students")
-//	public List<Student> getAllStudent()  throws Exception{
-//		return hs.getAllStudents();
-//	} 
-//	
-//	@PostMapping(path="/addStudent")
-//	public void addStudent(@RequestBody Student st) throws Exception {
-//		hs.addStudent(st);
-//	}
 }

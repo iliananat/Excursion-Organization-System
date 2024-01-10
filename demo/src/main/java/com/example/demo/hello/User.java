@@ -14,7 +14,6 @@ public abstract class User {
 		this.password = password;
 	}
 	
-	
 	public abstract boolean isValidRegistration();
 	
 	public String getAfm() {
@@ -25,9 +24,10 @@ public abstract class User {
 		return password;
 	}
 	
-	
-	public void login() {
-		
+	public boolean isValidAfm(String afm) {
+	    // Check if the AFM is not null and has exactly 9 digits
+	    return afm != null && afm.length() == 9 && afm.matches("\\d+");
 	}
+
 
 }

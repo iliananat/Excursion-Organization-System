@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Trip {
 	@Id
+	private String id;
 	private TravelAgency travelAgency;
 	private LocalDate startDate;
 	private LocalDate endDate;
@@ -29,6 +30,10 @@ public class Trip {
 		this.destLocation = destLocation;
 		this.schedule = schedule;
 		this.maxNumOfParticipants = maxNumOfParticipants;
+	}
+	
+	public String getID() {
+		return id;
 	}
 
 	public TravelAgency getTravelAgency() {
@@ -67,5 +72,10 @@ public class Trip {
 	public String getMaxNumOfParticipants() {
 		return maxNumOfParticipants;
 	}
+
+	public Trip getTrip() {
+		return this;
+	}
+
 	
 }

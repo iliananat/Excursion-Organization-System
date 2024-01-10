@@ -10,14 +10,6 @@ public class HelloService {
 	@Autowired
 	private TripRepository tripRepository;
 	private UserRepository userRepository;
-//	@Autowired
-//	private ProfessorRepository profRepository;
-//	
-//	public void addProfessor(Professor p) throws Exception {
-//		Optional<Professor> byId = profRepository.findById(p.getName());
-//		if(!byId.isPresent())
-//			profRepository.save(p);
-//	}
 
 	public void addTrip(Trip t) throws Exception {
 		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
@@ -37,11 +29,23 @@ public class HelloService {
             throw new IllegalArgumentException("Invalid registration for user");
         }
     }
+    
+    // Login User
+    public boolean login(String afm, String password) throws Exception{
+    	User loginUser = userRepository.findById(afm).orElse(null);
+    	return loginUser != null && loginUser.getPassword().equals(password);
+    }
 	
 	// Book Trip
-	public boolean bookTrip(Trip tripBooked, int numOfPeopleBooked) {
+	public boolean bookTrip(String tripID, int numOfPeopleBooked) {
+		
+	    // Validate inputs
+	    if (tripID == null || numOfPeopleBooked <= 0) {
+	        return false; // Invalid inputs
+	    }
+	    
 		// Get the selected trip
-		Trip trip = tripRepository.findById(tripBooked.getTravelAgency().getAfm()).orElse(null);
+		Trip trip = tripRepository.findById(tripID).orElse(null);
 		// Check if there are available seat
 		if (trip != null && trip.getAvailableSeats() > 0) {
 			// Update booked seats and save
