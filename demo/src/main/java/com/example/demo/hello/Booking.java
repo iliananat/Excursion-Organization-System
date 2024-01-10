@@ -16,42 +16,52 @@ public class Booking {
 	}
 	
 	
-	public ArrayList<Trip> tripSearch(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt, String travelag){
+	public ArrayList<Trip> tripSearch(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){
 		ArrayList<Trip> temp = new ArrayList<>();
 		temp = trips;
 		
 		if(depLoc!=null) {
-			for(int i=0;i<temp.size();i++) {
-				if(!temp.get(i).getDepLocation().equals(depLoc)) {
-					temp.remove(i);			
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getDepLocation().equals(depLoc)) {
+					temp.remove(index);
+				}else {
+					index++;
 				}
 			}
 		}
+
 		if(destLoc!=null) {
-			for(int i=0;i<temp.size();i++) {
-				if(!temp.get(i).getDestLocation().equals(destLoc)) {
-					temp.remove(i);
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getDestLocation().equals(destLoc)) {
+					temp.remove(index);
+				}else {
+					index++;
 				}
 			}
 		}
+		
 		if(startdt!=null) {
-			for(int i=0;i<temp.size();i++) {
-				if(!temp.get(i).getStartDate().equals(startdt)) {
-					temp.remove(i);
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getStartDate().equals(startdt)) {
+					temp.remove(index);
+				}else {
+					index++;
 				}
 			}
 		}
 		if(enddt!=null) {
-			for(int i=0;i<temp.size();i++) {
-				if(!temp.get(i).getEndDate().equals(enddt)) {
-					temp.remove(i);
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getEndDate().equals(enddt)) {
+					temp.remove(index);
+				}else {
+					index++;
 				}
 			}
 		}
-		if(travelag!=null) {
-			//complete this
-		}
-		
 		return temp;
 	}
 	

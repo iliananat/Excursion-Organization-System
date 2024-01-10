@@ -16,14 +16,14 @@ public class HelloController {
 		hs.addTrip(t);
 	}
 	
-    @PostMapping("/register/citizen")
+    @PostMapping(path="/register/citizen")
     public void registerCitizen(@RequestBody Citizen c) throws Exception{
         Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
         hs.registerUser(citizen);
     }
  
 
-    @PostMapping("/register/travel-agency")
+    @PostMapping(path="/register/travel-agency")
     public void registerTravelAgency(@RequestBody TravelAgency t) {
         TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
         hs.registerUser(travelAgency);
