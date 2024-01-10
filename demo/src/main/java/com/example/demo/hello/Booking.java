@@ -15,6 +15,7 @@ public class Booking {
 		trips = t;
 	}
 	
+	
 	public ArrayList<Trip> tripSearch(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt, String travelag){
 		ArrayList<Trip> temp = new ArrayList<>();
 		temp = trips;

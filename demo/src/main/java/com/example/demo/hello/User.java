@@ -15,14 +15,19 @@ public abstract class User {
 	}
 	
 	
-	public abstract void register();
+	public abstract boolean isValidRegistration();
 	
 	public String getAfm() {
 		return afm;
+	}
+	
+	public String getPassword() {
+		return password;
 	}
 	
 	
 	public void login() {
 		
 	}
+
 }

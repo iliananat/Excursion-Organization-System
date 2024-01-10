@@ -15,6 +15,8 @@ public class Trip {
 	private String destLocation;
 	private String schedule;
 	private String maxNumOfParticipants;
+    private int bookedSeats = 0;
+    private int availableSeats;
 
 	public Trip(){}
 	
@@ -47,6 +49,23 @@ public class Trip {
 
 	public String getDestLocation() {
 		return destLocation;
+	}
+	
+	public int getAvailableSeats() {
+		availableSeats = Integer.getInteger(this.maxNumOfParticipants) - this.bookedSeats;
+		return availableSeats;
+	}
+	
+	public int getBookedSeats() {
+		return bookedSeats;
+	}
+
+	public void setBookedSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+
+	public String getMaxNumOfParticipants() {
+		return maxNumOfParticipants;
 	}
 	
 }

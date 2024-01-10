@@ -5,23 +5,40 @@ import javax.persistence.*;
 @Entity
 public class Citizen extends User{
 
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	
 	public Citizen(){}
 	
-	public Citizen(String afm, String password, String first_name, String last_name, String email) {
+	public Citizen(String afm, String password, String firstName, String lastName, String email) {
 		super(afm, password);
-		this.first_name = first_name;
-		this.last_name = last_name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 	}
 
 	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
 	@Override
-	public void register() {
-		// TODO Auto-generated method stub
-		
-	}	
+	public boolean isValidRegistration() {
+	    // Check if required fields are not null or empty
+	    return this.afm != null && !this.afm.isEmpty() &&
+	           this.password != null && !this.password.isEmpty() &&
+	           this.firstName != null && !this.firstName.isEmpty() &&
+	           this.lastName != null && !this.lastName.isEmpty() &&
+	           this.email != null && !this.email.isEmpty();
+	}
+
 }

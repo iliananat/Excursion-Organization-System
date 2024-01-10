@@ -9,6 +9,7 @@ public class HelloService {
 
 	@Autowired
 	private TripRepository tripRepository;
+	private UserRepository userRepository;
 //	@Autowired
 //	private ProfessorRepository profRepository;
 //	
@@ -26,6 +27,30 @@ public class HelloService {
 
 	public List<Trip> getAllTrips() throws Exception {
 		return tripRepository.findAll();
+	}
+	
+	// Register User
+    public void registerUser(User user) {
+        if (user.isValidRegistration()) {
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Invalid registration for user");
+        }
+    }
+	
+	// Book Trip
+	public boolean bookTrip(Trip tripBooked, int numOfPeopleBooked) {
+		// Get the selected trip
+		Trip trip = tripRepository.findById(tripBooked.getTravelAgency().getAfm()).orElse(null);
+		// Check if there are available seat
+		if (trip != null && trip.getAvailableSeats() > 0) {
+			// Update booked seats and save
+			trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
+			tripRepository.save(trip);
+			return true; // Booking successful
+		} else {
+			return false; // No available seats or trip not found
+		}
 	}
 
 }

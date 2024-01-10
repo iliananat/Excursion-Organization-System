@@ -1,6 +1,5 @@
 package com.example.demo.hello;
 
-import java.util.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +15,19 @@ public class HelloController {
 	public void addTrip(@RequestBody Trip t) throws Exception {
 		hs.addTrip(t);
 	}
+	
+    @PostMapping("/register/citizen")
+    public void registerCitizen(@RequestBody Citizen c) throws Exception{
+        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
+        hs.registerUser(citizen);
+    }
+ 
+
+    @PostMapping("/register/travel-agency")
+    public void registerTravelAgency(@RequestBody TravelAgency t) {
+        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
+        hs.registerUser(travelAgency);
+    }
 	
 //	@GetMapping(path="/students")
 //	public List<Student> getAllStudent()  throws Exception{
