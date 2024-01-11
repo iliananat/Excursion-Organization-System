@@ -9,7 +9,12 @@ public class HelloService {
 
 	@Autowired
 	private TripRepository tripRepository;
+	
+	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BookingRepository bookingRepository;
 
 	public void addTrip(Trip t) throws Exception {
 		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
@@ -37,19 +42,20 @@ public class HelloService {
     }
 	
 	// Book Trip
-	public boolean bookTrip(String tripID, int numOfPeopleBooked) {
+	public boolean bookTrip(Booking booking , int numOfPeopleBooked) {
 		
 	    // Validate inputs
-	    if (tripID == null || numOfPeopleBooked <= 0) {
+	    if (booking == null || numOfPeopleBooked <= 0) {
 	        return false; // Invalid inputs
 	    }
 	    
 		// Get the selected trip
-		Trip trip = tripRepository.findById(tripID).orElse(null);
+		Trip trip = tripRepository.findById(booking.getTrip().getID()).orElse(null);
 		// Check if there are available seat
 		if (trip != null && trip.getAvailableSeats() > 0) {
 			// Update booked seats and save
 			trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
+			bookingRepository.save(booking);
 			tripRepository.save(trip);
 			return true; // Booking successful
 		} else {

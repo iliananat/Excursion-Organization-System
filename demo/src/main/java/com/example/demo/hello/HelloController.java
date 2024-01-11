@@ -31,7 +31,7 @@ public class HelloController {
         hs.registerUser(travelAgency);
     }
     
-    @PostMapping(path = "/login")
+    @PostMapping(path="/login")
     public void login(@RequestBody Map<String, String> loginRequest) throws Exception{
         String afm = loginRequest.get("afm");
         String password = loginRequest.get("password");
@@ -43,10 +43,10 @@ public class HelloController {
         }
     }
     
-    @PostMapping("/book")
+    @PostMapping(path="/booking")
     public void bookTrip(@RequestBody Booking b, int numOfPeopleBooked) throws Exception{
     	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
-    	boolean bookingResult = hs.bookTrip(booking.getTrip().getID(), numOfPeopleBooked);
+    	boolean bookingResult = hs.bookTrip(booking, numOfPeopleBooked);
         if (bookingResult) {
             System.out.println("Trip booked successfully");
         } else {

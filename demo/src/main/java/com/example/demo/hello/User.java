@@ -2,6 +2,9 @@ package com.example.demo.hello;
 
 import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
 	@Id
 	protected String afm;
