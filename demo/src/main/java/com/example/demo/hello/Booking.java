@@ -4,26 +4,41 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Booking {
-	private ArrayList<Trip> trips;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	//private ArrayList<Trip> trips;
 	private Citizen citizenBooked;
 	private Trip tripBooked;
 	
 	public Booking(){}
 	
-	public Booking(ArrayList<Trip> t) {
+/*	public Booking(ArrayList<Trip> t) {
 		trips = t;
-	}
+	}*/
 	
 	public Booking(Trip tripBooked, Citizen citizenBooked) {
 		this.tripBooked = tripBooked;
 		this.citizenBooked = citizenBooked;
 	}
+
+	public Trip getTrip() {
+		// TODO Auto-generated method stub
+		return tripBooked;
+	}
+	
+	public Citizen getBookedCitizen() {
+		return citizenBooked;
+	}
 	
 	
-	public ArrayList<Trip> tripSearch(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){
+/*	public ArrayList<Trip> tripSearch(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){
 		ArrayList<Trip> temp = new ArrayList<>();
 		temp = trips;
 		
@@ -78,7 +93,7 @@ public class Booking {
 	
 	public Citizen getBookedCitizen() {
 		return citizenBooked;
-	}
+	}*/
 
 	
 }

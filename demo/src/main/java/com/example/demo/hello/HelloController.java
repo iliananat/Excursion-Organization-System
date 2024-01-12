@@ -1,5 +1,7 @@
 package com.example.demo.hello;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.*;
@@ -12,6 +14,11 @@ public class HelloController {
 
 	@Autowired
 	private HelloService hs;
+	
+	@GetMapping(path="/trips")
+	public List<Trip> getAllTrips() throws Exception {
+		return hs.getAllTrips();
+	}
 	
 	@PostMapping(path="/addTrip")
 	public void addTrip(@RequestBody Trip t) throws Exception {
@@ -31,18 +38,24 @@ public class HelloController {
         hs.registerUser(travelAgency);
     }
     
+    // Log in user
     @PostMapping(path="/login")
-    public void login(@RequestBody Map<String, String> loginRequest) throws Exception{
+    public User login(@RequestBody Map<String, String> loginRequest) throws Exception{
         String afm = loginRequest.get("afm");
         String password = loginRequest.get("password");
+        User loggedUser = hs.login(afm, password);
         
-        if (hs.login(afm, password)) {
+        if (loggedUser != null) {
             System.out.println("Logged in successfully!");
         } else {
             System.out.println("Wrong AFM or Password!");
         }
+        
+        return loggedUser;
+        
     }
     
+    // Booking a trip
     @PostMapping(path="/booking")
     public void bookTrip(@RequestBody Booking b, int numOfPeopleBooked) throws Exception{
     	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
@@ -53,5 +66,22 @@ public class HelloController {
         	System.out.println("Booking failed. No available seats or trip not found.");
         }
     }
+    
+    // Searching trips
+    @GetMapping(path="/search")
+    public List<Trip> searchTrips(
+            @RequestParam String depLoc,
+            @RequestParam String destLoc,
+            @RequestParam String startdt,
+            @RequestParam String enddt
+    ) throws Exception{
+        LocalDate startDate = LocalDate.parse(startdt);
+        LocalDate endDate = LocalDate.parse(enddt);
+        
+        List<Trip> searchedTrips = hs.searchTrips(depLoc, destLoc, startDate, endDate);
+        return searchedTrips;
+    }
+
+    
 	
 }

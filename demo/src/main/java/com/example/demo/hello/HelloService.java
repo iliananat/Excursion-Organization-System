@@ -1,5 +1,6 @@
 package com.example.demo.hello;
 
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
@@ -15,6 +16,7 @@ public class HelloService {
 	
 	@Autowired
 	private BookingRepository bookingRepository;
+	
 
 	public void addTrip(Trip t) throws Exception {
 		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
@@ -36,9 +38,12 @@ public class HelloService {
     }
     
     // Login User
-    public boolean login(String afm, String password) throws Exception{
+    public User login(String afm, String password) throws Exception{
     	User loginUser = userRepository.findById(afm).orElse(null);
-    	return loginUser != null && loginUser.getPassword().equals(password);
+    	if(loginUser != null && loginUser.getPassword().equals(password)) {
+    		return loginUser;
+    	}
+    	return null;
     }
 	
 	// Book Trip
@@ -55,12 +60,63 @@ public class HelloService {
 		if (trip != null && trip.getAvailableSeats() > 0) {
 			// Update booked seats and save
 			trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
-			bookingRepository.save(booking);
 			tripRepository.save(trip);
+			// Save booking
+			bookingRepository.save(booking);
 			return true; // Booking successful
 		} else {
 			return false; // No available seats or trip not found
 		}
 	}
+	
+    public List<Trip> searchTrips(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){
+    	List<Trip> trips = tripRepository.findAll();
+		List<Trip> temp = trips;
+		
+		if(depLoc!=null) {
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getDepLocation().equals(depLoc)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+
+		if(destLoc!=null) {
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getDestLocation().equals(destLoc)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+		
+		if(startdt!=null) {
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getStartDate().equals(startdt)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+		if(enddt!=null) {
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getEndDate().equals(enddt)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+		return temp;
+        //return tripRepository.findByLocationAndDate(depLoc, destLoc, startdt, enddt);
+    }
 
 }

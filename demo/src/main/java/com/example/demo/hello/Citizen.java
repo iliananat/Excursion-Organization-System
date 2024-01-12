@@ -3,6 +3,7 @@ package com.example.demo.hello;
 import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("citizen")
 public class Citizen extends User{
 
 	private String firstName;

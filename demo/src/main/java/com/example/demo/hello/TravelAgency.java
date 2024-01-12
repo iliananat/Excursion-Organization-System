@@ -3,6 +3,7 @@ package com.example.demo.hello;
 import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("travel_agency")
 public class TravelAgency extends User {
     private String name;
     private String owner;
