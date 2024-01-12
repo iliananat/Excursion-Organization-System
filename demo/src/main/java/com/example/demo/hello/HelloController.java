@@ -20,13 +20,31 @@ public class HelloController {
 		return hs.getAllTrips();
 	}
 	
+	@GetMapping(path="/bookedTrips")
+	public List<Booking> myBookedTrips() throws Exception {
+		if(hs.getLoggedInUser() instanceof Citizen) {
+			Citizen citizen = (Citizen) hs.getLoggedInUser();
+			return hs.getMyBookings(citizen);
+		}
+		return null;
+	}
+	
+	@GetMapping(path="/travelAgencyTrips")
+	public List<Trip> travelAgencyTrips() throws Exception {
+		if(hs.getLoggedInUser() instanceof TravelAgency) {
+			TravelAgency travelAgency = (TravelAgency) hs.getLoggedInUser();
+			return hs.getTravelAgencyTrips(travelAgency);
+		}
+		return null;
+	}
+	
 	@PostMapping(path="/addTrip")
 	public void addTrip(@RequestBody Trip t) throws Exception {
 		hs.addTrip(t);
 	}
 	
     @PostMapping(path="/register/citizen")
-    public void registerCitizen(@RequestBody Citizen c) throws Exception{
+    public void registerCitizen(@RequestBody Citizen c) {
         Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
         hs.registerUser(citizen);
     }
@@ -47,6 +65,7 @@ public class HelloController {
         
         if (loggedUser != null) {
             System.out.println("Logged in successfully!");
+            hs.setLoggedInUser(loggedUser);
         } else {
             System.out.println("Wrong AFM or Password!");
         }

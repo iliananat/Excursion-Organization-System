@@ -16,7 +16,15 @@ public class HelloService {
 	
 	@Autowired
 	private BookingRepository bookingRepository;
-	
+    private User loggedInUser;
+
+    public void setLoggedInUser(User loggedUser) {
+        this.loggedInUser = loggedUser;
+    }
+
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
 
 	public void addTrip(Trip t) throws Exception {
 		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
@@ -26,6 +34,28 @@ public class HelloService {
 
 	public List<Trip> getAllTrips() throws Exception {
 		return tripRepository.findAll();
+	}
+	
+	public List<Booking> getMyBookings(Citizen c) throws Exception {
+		List<Booking> bookings = bookingRepository.findAll();
+		List<Booking> myBookings = new ArrayList<>();
+		for (Booking booking : bookings) {
+			if (booking.getBookedCitizen().equals(c)) {
+				myBookings.add(booking);
+			}
+		}
+		return myBookings;
+	}
+	
+	public List<Trip> getTravelAgencyTrips(TravelAgency t) throws Exception {
+		List<Trip> allTrips = getAllTrips();
+		List<Trip> travelAgencyTrips = new ArrayList<>();
+		for (Trip trip: allTrips) {
+			if (trip.getTravelAgency().equals(t)) {
+				travelAgencyTrips.add(trip);
+			}
+		}
+		return travelAgencyTrips;
 	}
 	
 	// Register User
@@ -116,7 +146,6 @@ public class HelloService {
 			}
 		}
 		return temp;
-        //return tripRepository.findByLocationAndDate(depLoc, destLoc, startdt, enddt);
     }
 
 }
