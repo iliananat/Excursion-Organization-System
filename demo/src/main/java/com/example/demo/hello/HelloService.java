@@ -2,6 +2,8 @@ package com.example.demo.hello;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
@@ -16,15 +18,9 @@ public class HelloService {
 	
 	@Autowired
 	private BookingRepository bookingRepository;
-    private User loggedInUser;
-
-    public void setLoggedInUser(User loggedUser) {
-        this.loggedInUser = loggedUser;
-    }
-
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
+    
+    // Map to store logged-in users with user ID (AFM) as the key and password as the value
+    private Map<String, User> loggedInUsers = new ConcurrentHashMap<>();
 
 	public void addTrip(Trip t) throws Exception {
 		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
@@ -71,9 +67,31 @@ public class HelloService {
     public User login(String afm, String password) throws Exception{
     	User loginUser = userRepository.findById(afm).orElse(null);
     	if(loginUser != null && loginUser.getPassword().equals(password)) {
+    		loggedInUsers.put(loginUser.getAfm(), loginUser);
     		return loginUser;
     	}
     	return null;
+    }
+    
+    // Logout User
+    public void logout(String afm) {
+        loggedInUsers.remove(afm);
+    }
+    
+    // Get Logged in User
+    public User getLoggedInUser(String afm) throws Exception{
+		if (loggedInUsers.containsKey(afm)) {
+			User loggedInUser = loggedInUsers.get(afm);
+			return loggedInUser;
+		} else {
+			return null;
+		}
+
+    }
+    
+    // Check if User is Logged In
+    public boolean isLoggedIn(String afm) {
+        return loggedInUsers.containsKey(afm);
     }
 	
 	// Book Trip

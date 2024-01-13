@@ -15,32 +15,43 @@ public class HelloController {
 	@Autowired
 	private HelloService hs;
 	
+	@GetMapping("/{afm}")
+	public String userPage(@PathVariable String afm) {
+	    return "userPage"; 
+	}
+	
 	@GetMapping(path="/trips")
 	public List<Trip> getAllTrips() throws Exception {
 		return hs.getAllTrips();
 	}
 	
-	@GetMapping(path="/bookedTrips")
-	public List<Booking> myBookedTrips() throws Exception {
-		if(hs.getLoggedInUser() instanceof Citizen) {
-			Citizen citizen = (Citizen) hs.getLoggedInUser();
+	@GetMapping(path="/{afm}/bookedTrips")
+	public List<Booking> myBookedTrips(@PathVariable String afm) throws Exception {
+
+		User loggedInUser = hs.getLoggedInUser(afm);;
+		if(loggedInUser instanceof Citizen){
+			Citizen citizen = (Citizen) loggedInUser;
 			return hs.getMyBookings(citizen);
 		}
 		return null;
 	}
 	
-	@GetMapping(path="/travelAgencyTrips")
-	public List<Trip> travelAgencyTrips() throws Exception {
-		if(hs.getLoggedInUser() instanceof TravelAgency) {
-			TravelAgency travelAgency = (TravelAgency) hs.getLoggedInUser();
+	@GetMapping(path="/{afm}/travelAgencyTrips")
+	public List<Trip> travelAgencyTrips(@PathVariable String afm) throws Exception {
+		User loggedInUser = hs.getLoggedInUser(afm);
+		
+		if(loggedInUser instanceof TravelAgency) {
+			TravelAgency travelAgency = (TravelAgency) loggedInUser;
 			return hs.getTravelAgencyTrips(travelAgency);
 		}
 		return null;
 	}
 	
-	@PostMapping(path="/addTrip")
-	public void addTrip(@RequestBody Trip t) throws Exception {
-		hs.addTrip(t);
+	@PostMapping(path="/{afm}/addTrip")
+	public void addTrip(@PathVariable String afm, @RequestBody Trip t) throws Exception {
+		if(hs.isLoggedIn(afm)) {
+			hs.addTrip(t);
+		}
 	}
 	
     @PostMapping(path="/register/citizen")
@@ -56,49 +67,66 @@ public class HelloController {
         hs.registerUser(travelAgency);
     }
     
-    // Log in user
+    // Log in user and redirect
     @PostMapping(path="/login")
-    public User login(@RequestBody Map<String, String> loginRequest) throws Exception{
+    public String login(@RequestBody Map<String, String> loginRequest) throws Exception{
         String afm = loginRequest.get("afm");
         String password = loginRequest.get("password");
         User loggedUser = hs.login(afm, password);
         
         if (loggedUser != null) {
             System.out.println("Logged in successfully!");
-            hs.setLoggedInUser(loggedUser);
+            return "redirect:/" + afm;
         } else {
             System.out.println("Wrong AFM or Password!");
+            return null;
         }
         
-        return loggedUser;
-        
+    }
+    
+    // Logout User and redirect
+    @PostMapping(path="/{afm}/logout")
+    public String logout(@PathVariable String afm) throws Exception{
+    	if (hs.isLoggedIn(afm)) {
+    		hs.logout(afm);
+    		return "redirect:/";
+    	} else {
+    		return null;
+    	}
     }
     
     // Booking a trip
-    @PostMapping(path="/booking")
-    public void bookTrip(@RequestBody Booking b, int numOfPeopleBooked) throws Exception{
-    	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
-    	boolean bookingResult = hs.bookTrip(booking, numOfPeopleBooked);
-        if (bookingResult) {
-            System.out.println("Trip booked successfully");
-        } else {
-        	System.out.println("Booking failed. No available seats or trip not found.");
-        }
+    @PostMapping(path="/{afm}/booking")
+    public void bookTrip(@PathVariable String afm, @RequestBody Booking b, int numOfPeopleBooked) throws Exception{
+    	if (hs.isLoggedIn(afm)) {
+	    	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
+	    	boolean bookingResult = hs.bookTrip(booking, numOfPeopleBooked);
+	        if (bookingResult) {
+	            System.out.println("Trip booked successfully");
+	        } else {
+	        	System.out.println("Booking failed. No available seats or trip not found.");
+	        }
+    	}
     }
     
     // Searching trips
-    @GetMapping(path="/search")
+    @GetMapping(path="/{afm}/search")
     public List<Trip> searchTrips(
+    		@PathVariable String afm,
             @RequestParam String depLoc,
             @RequestParam String destLoc,
             @RequestParam String startdt,
             @RequestParam String enddt
     ) throws Exception{
-        LocalDate startDate = LocalDate.parse(startdt);
-        LocalDate endDate = LocalDate.parse(enddt);
-        
-        List<Trip> searchedTrips = hs.searchTrips(depLoc, destLoc, startDate, endDate);
-        return searchedTrips;
+    	if (hs.isLoggedIn(afm)) {
+	        LocalDate startDate = LocalDate.parse(startdt);
+	        LocalDate endDate = LocalDate.parse(enddt);
+	        
+	        List<Trip> searchedTrips = hs.searchTrips(depLoc, destLoc, startDate, endDate);
+	        return searchedTrips;
+    	} else {
+    		return null;
+    	}
     }
 
     
