@@ -3,6 +3,7 @@ package com.example.demo.hello;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {

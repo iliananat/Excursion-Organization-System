@@ -3,7 +3,6 @@ package com.example.demo.hello;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
@@ -23,9 +22,7 @@ public class HelloService {
     private Map<String, User> loggedInUsers = new ConcurrentHashMap<>();
 
 	public void addTrip(Trip t) throws Exception {
-		Optional<Trip> byId = tripRepository.findById(t.getTravelAgency().getAfm());
-		if(!byId.isPresent())
-			tripRepository.save(t);
+		tripRepository.save(t);
 	}
 
 	public List<Trip> getAllTrips() throws Exception {
@@ -56,7 +53,8 @@ public class HelloService {
 	
 	// Register User
     public void registerUser(User user) {
-        if (user.isValidRegistration()) {
+        if (user.isValidRegistration() && 
+        		!userRepository.existsById(user.getAfm())) {
             userRepository.save(user);
         } else {
             throw new IllegalArgumentException("Invalid registration for user");
@@ -95,26 +93,32 @@ public class HelloService {
     }
 	
 	// Book Trip
-	public boolean bookTrip(Booking booking , int numOfPeopleBooked) {
+	public boolean bookTrip(Trip selectedTrip, Citizen currCitizen , int numOfPeopleBooked) {
 		
 	    // Validate inputs
-	    if (booking == null || numOfPeopleBooked <= 0) {
+	    if (selectedTrip == null || currCitizen == null || numOfPeopleBooked < 0) {
 	        return false; // Invalid inputs
 	    }
 	    
-		// Get the selected trip
-		Trip trip = tripRepository.findById(booking.getTrip().getID()).orElse(null);
-		// Check if there are available seat
-		if (trip != null && trip.getAvailableSeats() > 0) {
-			// Update booked seats and save
-			trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
-			tripRepository.save(trip);
-			// Save booking
-			bookingRepository.save(booking);
-			return true; // Booking successful
+		selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() + numOfPeopleBooked);
+		//System.out.println("Booked Before: " + selectedTrip.getBookedSeats());
+		//System.out.println("Available Before: " + selectedTrip.getAvailableSeats());
+		if (selectedTrip.getAvailableSeats() >= 0) {
+			// Get the selected trip
+			Trip trip = tripRepository.findById(selectedTrip.getID()).orElse(null);
+			// Check if there are available seat
+			if (trip != null) {
+				// Update booked seats
+				trip.setBookedSeats(selectedTrip.getBookedSeats());
+				tripRepository.save(trip);
+				// Save booking
+				Booking booking = new Booking(trip, currCitizen);
+				bookingRepository.save(booking);
+				return true; // Booking successful
+			}
 		} else {
-			return false; // No available seats or trip not found
-		}
+			selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);}
+		return false; // No seats
 	}
 	
     public List<Trip> searchTrips(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){

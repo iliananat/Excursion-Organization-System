@@ -1,11 +1,11 @@
 package com.example.demo.hello;
 
-import java.util.ArrayList;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -14,7 +14,10 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
+	@JoinColumn(name = "citizen_booked_afm")
 	private Citizen citizenBooked;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "trip_booked_id")
 	private Trip tripBooked;
 	
 	public Booking(){}

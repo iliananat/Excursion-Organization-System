@@ -1,10 +1,17 @@
 package com.example.demo.hello;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("travel_agency")
 public class TravelAgency extends User {
+	
+    @OneToMany(mappedBy = "travelAgency", cascade = CascadeType.ALL)
+    private List<Trip> trips = new ArrayList<>();
+	
     private String name;
     private String owner;
 

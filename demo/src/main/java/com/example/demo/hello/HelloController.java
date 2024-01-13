@@ -15,7 +15,12 @@ public class HelloController {
 	@Autowired
 	private HelloService hs;
 	
-	@GetMapping("/{afm}")
+	@GetMapping(path="/")
+	public String homePage() {
+		return "Home Page";
+	}
+	
+	@GetMapping(path="/{afm}")
 	public String userPage(@PathVariable String afm) {
 	    return "userPage"; 
 	}
@@ -97,10 +102,10 @@ public class HelloController {
     
     // Booking a trip
     @PostMapping(path="/{afm}/booking")
-    public void bookTrip(@PathVariable String afm, @RequestBody Booking b, int numOfPeopleBooked) throws Exception{
+    public void bookTrip(@PathVariable String afm, @RequestBody Trip selectedTrip,
+    		Citizen currentCitizen, int numOfPeopleBooked) throws Exception{
     	if (hs.isLoggedIn(afm)) {
-	    	Booking booking = new Booking(b.getTrip(), b.getBookedCitizen());
-	    	boolean bookingResult = hs.bookTrip(booking, numOfPeopleBooked);
+	    	boolean bookingResult = hs.bookTrip(selectedTrip, currentCitizen, numOfPeopleBooked);
 	        if (bookingResult) {
 	            System.out.println("Trip booked successfully");
 	        } else {

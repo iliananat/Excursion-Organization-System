@@ -2,27 +2,35 @@ package com.example.demo.hello;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Trip {
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+    @JoinColumn(name = "travel_agency_afm")
 	private TravelAgency travelAgency;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String depLocation;
 	private String destLocation;
 	private String schedule;
-	private String maxNumOfParticipants;
+	private int maxNumOfParticipants;
     private int bookedSeats = 0;
-    private int availableSeats;
 
 	public Trip(){}
 	
 	public Trip(TravelAgency travelAgency, LocalDate startDate, LocalDate endDate, String depLocation,
-			String destLocation, String schedule, String maxNumOfParticipants) {
+			String destLocation, String schedule, int maxNumOfParticipants) {
 		this.travelAgency = travelAgency;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -32,7 +40,7 @@ public class Trip {
 		this.maxNumOfParticipants = maxNumOfParticipants;
 	}
 	
-	public String getID() {
+	public Long getID() {
 		return id;
 	}
 
@@ -57,8 +65,7 @@ public class Trip {
 	}
 	
 	public int getAvailableSeats() {
-		availableSeats = Integer.getInteger(this.maxNumOfParticipants) - this.bookedSeats;
-		return availableSeats;
+		return maxNumOfParticipants - bookedSeats;
 	}
 	
 	public int getBookedSeats() {
@@ -69,7 +76,7 @@ public class Trip {
 		this.bookedSeats = bookedSeats;
 	}
 
-	public String getMaxNumOfParticipants() {
+	public int getMaxNumOfParticipants() {
 		return maxNumOfParticipants;
 	}
 
