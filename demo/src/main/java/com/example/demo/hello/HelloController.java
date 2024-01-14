@@ -1,6 +1,5 @@
 package com.example.demo.hello;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +103,7 @@ public class HelloController {
     @PostMapping(path="/{afm}/booking")
     public void bookTrip(@PathVariable String afm, @RequestParam Long tripID,
     		 @RequestParam int numOfPeopleBooked) throws Exception{
-    	if (hs.isLoggedIn(afm)) {
+    	if (hs.isLoggedIn(afm) && hs.getLoggedInUser(afm) instanceof Citizen) {
 	    	boolean bookingResult = hs.bookTrip(tripID, afm, numOfPeopleBooked);
 	        if (bookingResult) {
 	            System.out.println("Trip booked successfully");
