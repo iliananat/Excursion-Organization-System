@@ -118,16 +118,14 @@ public class HelloController {
     @GetMapping(path="/{afm}/search")
     public List<Trip> searchTrips(
     		@PathVariable String afm,
-            @RequestParam String depLoc,
-            @RequestParam String destLoc,
-            @RequestParam String startdt,
-            @RequestParam String enddt
+            @RequestParam(value="depLoc") String depLoc,
+            @RequestParam(value="destLoc") String destLoc,
+            @RequestParam(value="startdt") String startdt,
+            @RequestParam(value="enddt") String enddt
     ) throws Exception{
     	if (hs.isLoggedIn(afm)) {
-	        LocalDate startDate = LocalDate.parse(startdt);
-	        LocalDate endDate = LocalDate.parse(enddt);
 	        
-	        List<Trip> searchedTrips = hs.searchTrips(depLoc, destLoc, startDate, endDate);
+	        List<Trip> searchedTrips = hs.searchTrips(depLoc, destLoc, startdt, enddt);
 	        return searchedTrips;
     	} else {
     		return null;

@@ -120,11 +120,35 @@ public class HelloService {
 		return false; // No seats
 	}
 	
-    public List<Trip> searchTrips(String depLoc, String destLoc, LocalDate startdt, LocalDate enddt){
+	
+    public List<Trip> searchTrips(String depLoc, String destLoc, String startDate, String endDate){
     	List<Trip> trips = tripRepository.findAll();
 		List<Trip> temp = trips;
 		
-		if(depLoc!=null) {
+		if(!startDate.equals("")) {
+			LocalDate startdt = LocalDate.parse(startDate);
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getStartDate().equals(startdt)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+		if(!endDate.equals("")) {
+			LocalDate enddt = LocalDate.parse(endDate);
+			int index=0;
+			while(index<temp.size()) {
+				if(!temp.get(index).getEndDate().equals(enddt)) {
+					temp.remove(index);
+				}else {
+					index++;
+				}
+			}
+		}
+		
+		if(!depLoc.equals("")) {
 			int index=0;
 			while(index<temp.size()) {
 				if(!temp.get(index).getDepLocation().equals(depLoc)) {
@@ -135,7 +159,7 @@ public class HelloService {
 			}
 		}
 
-		if(destLoc!=null) {
+		if(!destLoc.equals("")) {
 			int index=0;
 			while(index<temp.size()) {
 				if(!temp.get(index).getDestLocation().equals(destLoc)) {
@@ -145,27 +169,7 @@ public class HelloService {
 				}
 			}
 		}
-		
-		if(startdt!=null) {
-			int index=0;
-			while(index<temp.size()) {
-				if(!temp.get(index).getStartDate().equals(startdt)) {
-					temp.remove(index);
-				}else {
-					index++;
-				}
-			}
-		}
-		if(enddt!=null) {
-			int index=0;
-			while(index<temp.size()) {
-				if(!temp.get(index).getEndDate().equals(enddt)) {
-					temp.remove(index);
-				}else {
-					index++;
-				}
-			}
-		}
+
 		return temp;
     }
 
