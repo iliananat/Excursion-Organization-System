@@ -80,9 +80,6 @@ public class Trip {
 		return maxNumOfParticipants;
 	}
 
-	public Trip getTrip() {
-		return this;
-	}
 
 	
 }

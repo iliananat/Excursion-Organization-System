@@ -33,18 +33,21 @@ public class HelloController {
 		return hs.getAllTrips();
 	}
 	
-	@GetMapping(path="/{afm}/bookedTrips")
+	@GetMapping(path="/{afm}/mybookedTrips")
 	public List<Booking> myBookedTrips(@PathVariable String afm) throws Exception {
-		return hs.getMyBookings(afm);
+		User loggedInUser = hs.getLoggedInUser(afm);
+		if(loggedInUser instanceof Citizen) {
+			return hs.getMyBookings(afm);
+		}
+		return null;
+
 	}
 	
-	@GetMapping(path="/{afm}/travelAgencyTrips")
+	@GetMapping(path="/{afm}/mytravelAgencyTrips")
 	public List<Trip> travelAgencyTrips(@PathVariable String afm) throws Exception {
 		User loggedInUser = hs.getLoggedInUser(afm);
-		
 		if(loggedInUser instanceof TravelAgency) {
-			TravelAgency travelAgency = (TravelAgency) loggedInUser;
-			return hs.getTravelAgencyTrips(travelAgency);
+			return hs.getTravelAgencyTrips(afm);
 		}
 		return null;
 	}

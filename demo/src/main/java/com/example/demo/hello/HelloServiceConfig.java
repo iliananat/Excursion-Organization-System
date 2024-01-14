@@ -23,11 +23,13 @@ public class HelloServiceConfig implements CommandLineRunner {
 		Citizen citizen2 = new Citizen("111111111", "citizen2", "Iliana", "Natsiou", "ili.na@example.com");
 		TravelAgency travelAgency2 = new TravelAgency("222222222", "travel2", "Adventure Trips", "Dimitris Smith");
 		Citizen citizen3 = new Citizen("522222222", "citizen3", "Dimitris", "Kalaitzidis", "kalai@example.com");
+		Citizen citizen4 = new Citizen("121212121", "citizen4", "Giorgos", "Xatziparaskeuas", "xatzi@example.com");
 		hs.registerUser(citizen);
 		hs.registerUser(travelAgency);
 		hs.registerUser(travelAgency2);	
 		hs.registerUser(citizen2);
 		hs.registerUser(citizen3);
+		hs.registerUser(citizen4);
 		
 		LocalDate startDate = LocalDate.now();  
 		LocalDate endDate = startDate.plusDays(7);  

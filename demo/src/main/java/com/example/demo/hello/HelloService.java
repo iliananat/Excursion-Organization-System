@@ -42,9 +42,9 @@ public class HelloService {
 		return myBookings;
 	}
 	
-	public List<Trip> getTravelAgencyTrips(TravelAgency t) throws Exception {
-		TravelAgency travelAgency = (TravelAgency) userRepository.findById(t.getAfm()).orElse(null);
-		List<Trip> allTrips = getAllTrips();
+	public List<Trip> getTravelAgencyTrips(String afm) throws Exception {
+		TravelAgency travelAgency = (TravelAgency) userRepository.findById(afm).orElse(null);
+		List<Trip> allTrips = tripRepository.findAll();
 		List<Trip> travelAgencyTrips = new ArrayList<>();
 		for (Trip trip: allTrips) {
 			if (trip.getTravelAgency().getAfm().equals(travelAgency.getAfm())) {
