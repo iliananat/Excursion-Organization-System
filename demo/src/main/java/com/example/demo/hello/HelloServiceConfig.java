@@ -36,12 +36,12 @@ public class HelloServiceConfig implements CommandLineRunner {
 		hs.addTrip(trip);
 		hs.addTrip(trip2);
 			
-		hs.bookTrip(trip, citizen, 5);
-		hs.bookTrip(trip, citizen2, 5);
-		hs.bookTrip(trip2, citizen, 6);
-		hs.bookTrip(trip2, citizen2, 13);
-		hs.bookTrip(trip2, citizen3, 5); // >20
-		hs.bookTrip(trip2, citizen3, 1);
+		hs.bookTrip(trip.getID(), citizen.getAfm(), 5);
+		hs.bookTrip(trip.getID(), citizen2.getAfm(), 5);
+		hs.bookTrip(trip2.getID(), citizen.getAfm(), 6);
+		hs.bookTrip(trip2.getID(), citizen2.getAfm(), 13);
+		hs.bookTrip(trip2.getID(), citizen3.getAfm(), 5); // >20
+		hs.bookTrip(trip2.getID(), citizen3.getAfm(), 1);
 
 	}
 

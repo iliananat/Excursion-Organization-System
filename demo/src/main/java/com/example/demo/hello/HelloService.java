@@ -29,22 +29,25 @@ public class HelloService {
 		return tripRepository.findAll();
 	}
 	
-	public List<Booking> getMyBookings(Citizen c) throws Exception {
+	public List<Booking> getMyBookings(String afm) throws Exception {
+		Citizen citizen = (Citizen) userRepository.findById(afm).orElse(null);
 		List<Booking> bookings = bookingRepository.findAll();
-		List<Booking> myBookings = new ArrayList<>();
-		for (Booking booking : bookings) {
-			if (booking.getBookedCitizen().equals(c)) {
-				myBookings.add(booking);
-			}
-		}
+	    List<Booking> myBookings = new ArrayList<>();
+
+	    for (Booking booking : bookings) {
+	        if (booking.getBookedCitizen().equals(citizen)) {
+	            myBookings.add(booking);
+	        }
+	    }
 		return myBookings;
 	}
 	
 	public List<Trip> getTravelAgencyTrips(TravelAgency t) throws Exception {
+		TravelAgency travelAgency = (TravelAgency) userRepository.findById(t.getAfm()).orElse(null);
 		List<Trip> allTrips = getAllTrips();
 		List<Trip> travelAgencyTrips = new ArrayList<>();
 		for (Trip trip: allTrips) {
-			if (trip.getTravelAgency().equals(t)) {
+			if (trip.getTravelAgency().getAfm().equals(travelAgency.getAfm())) {
 				travelAgencyTrips.add(trip);
 			}
 		}
@@ -93,7 +96,10 @@ public class HelloService {
     }
 	
 	// Book Trip
-	public boolean bookTrip(Trip selectedTrip, Citizen currCitizen , int numOfPeopleBooked) {
+	public boolean bookTrip(Long tripID, String citizenAFM , int numOfPeopleBooked) {
+		
+		Trip selectedTrip = tripRepository.findById(tripID).orElse(null);
+		Citizen currCitizen = (Citizen) userRepository.findById(citizenAFM).orElse(null);
 		
 	    // Validate inputs
 	    if (selectedTrip == null || currCitizen == null || numOfPeopleBooked < 0) {
@@ -101,23 +107,16 @@ public class HelloService {
 	    }
 	    
 		selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() + numOfPeopleBooked);
-		//System.out.println("Booked Before: " + selectedTrip.getBookedSeats());
-		//System.out.println("Available Before: " + selectedTrip.getAvailableSeats());
+
+		// Check if there are available seat
 		if (selectedTrip.getAvailableSeats() >= 0) {
-			// Get the selected trip
-			Trip trip = tripRepository.findById(selectedTrip.getID()).orElse(null);
-			// Check if there are available seat
-			if (trip != null) {
 				// Update booked seats
-				trip.setBookedSeats(selectedTrip.getBookedSeats());
-				tripRepository.save(trip);
+				tripRepository.save(selectedTrip);
 				// Save booking
-				Booking booking = new Booking(trip, currCitizen);
+				Booking booking = new Booking(selectedTrip, currCitizen);
 				bookingRepository.save(booking);
 				return true; // Booking successful
-			}
-		} else {
-			selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);}
+		} else {selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);}
 		return false; // No seats
 	}
 	

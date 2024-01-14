@@ -22,7 +22,10 @@ public class HelloController {
 	
 	@GetMapping(path="/{afm}")
 	public String userPage(@PathVariable String afm) {
-	    return "userPage"; 
+		if (hs.isLoggedIn(afm)) {
+			return "userPage"; 
+		}
+		return null;
 	}
 	
 	@GetMapping(path="/trips")
@@ -32,13 +35,7 @@ public class HelloController {
 	
 	@GetMapping(path="/{afm}/bookedTrips")
 	public List<Booking> myBookedTrips(@PathVariable String afm) throws Exception {
-
-		User loggedInUser = hs.getLoggedInUser(afm);;
-		if(loggedInUser instanceof Citizen){
-			Citizen citizen = (Citizen) loggedInUser;
-			return hs.getMyBookings(citizen);
-		}
-		return null;
+		return hs.getMyBookings(afm);
 	}
 	
 	@GetMapping(path="/{afm}/travelAgencyTrips")
@@ -102,10 +99,10 @@ public class HelloController {
     
     // Booking a trip
     @PostMapping(path="/{afm}/booking")
-    public void bookTrip(@PathVariable String afm, @RequestBody Trip selectedTrip,
-    		Citizen currentCitizen, int numOfPeopleBooked) throws Exception{
+    public void bookTrip(@PathVariable String afm, @RequestParam Long tripID,
+    		 @RequestParam int numOfPeopleBooked) throws Exception{
     	if (hs.isLoggedIn(afm)) {
-	    	boolean bookingResult = hs.bookTrip(selectedTrip, currentCitizen, numOfPeopleBooked);
+	    	boolean bookingResult = hs.bookTrip(tripID, afm, numOfPeopleBooked);
 	        if (bookingResult) {
 	            System.out.println("Trip booked successfully");
 	        } else {
