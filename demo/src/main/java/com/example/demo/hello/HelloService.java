@@ -125,7 +125,7 @@ public class HelloService {
     	List<Trip> trips = tripRepository.findAll();
 		List<Trip> temp = trips;
 		
-		if(!startDate.equals("")) {
+		if(startDate!=null) {
 			LocalDate startdt = LocalDate.parse(startDate);
 			int index=0;
 			while(index<temp.size()) {
@@ -136,7 +136,7 @@ public class HelloService {
 				}
 			}
 		}
-		if(!endDate.equals("")) {
+		if(endDate!=null) {
 			LocalDate enddt = LocalDate.parse(endDate);
 			int index=0;
 			while(index<temp.size()) {
@@ -148,7 +148,7 @@ public class HelloService {
 			}
 		}
 		
-		if(!depLoc.equals("")) {
+		if(depLoc!=null) {
 			int index=0;
 			while(index<temp.size()) {
 				if(!temp.get(index).getDepLocation().equals(depLoc)) {
@@ -159,7 +159,7 @@ public class HelloService {
 			}
 		}
 
-		if(!destLoc.equals("")) {
+		if(destLoc!=null) {
 			int index=0;
 			while(index<temp.size()) {
 				if(!temp.get(index).getDestLocation().equals(destLoc)) {
