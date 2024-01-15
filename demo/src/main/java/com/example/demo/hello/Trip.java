@@ -79,6 +79,10 @@ public class Trip {
 	public int getMaxNumOfParticipants() {
 		return maxNumOfParticipants;
 	}
+	
+	public String getSchedule() {
+		return schedule;
+	}
 
 
 	
