@@ -31,6 +31,10 @@ public class Citizen extends User{
 	public String getEmail() {
 		return email;
 	}
+	
+	public String getUserType() {
+		return "citizen";
+	}
 
 	@Override
 	public boolean isValidRegistration() {

@@ -35,6 +35,10 @@ public class TravelAgency extends User {
     public String getOwner() {
         return owner;
     }
+    
+    public String getUserType() {
+    	return "travel_agency";
+    }
 
     @Override
     public boolean isValidRegistration() {

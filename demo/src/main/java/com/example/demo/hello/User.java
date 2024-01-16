@@ -19,6 +19,7 @@ public abstract class User {
 	}
 	
 	public abstract boolean isValidRegistration();
+	public abstract String getUserType();
 	
 	public String getAfm() {
 		return afm;
@@ -27,6 +28,7 @@ public abstract class User {
 	public String getPassword() {
 		return password;
 	}
+	
 	
 	public boolean isValidAfm(String afm) {
 	    // Check if the AFM is not null and has exactly 9 digits

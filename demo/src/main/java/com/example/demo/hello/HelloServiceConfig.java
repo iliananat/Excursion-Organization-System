@@ -18,7 +18,7 @@ public class HelloServiceConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Citizen citizen = new Citizen("123456781", "citizen1", "Maria", "Pantazi", "john.doe@example.com");
+		/*Citizen citizen = new Citizen("123456781", "citizen1", "Maria", "Pantazi", "john.doe@example.com");
 		TravelAgency travelAgency = new TravelAgency("987654322", "travel1", "Adventure Tours", "Georgia Smith");
 		Citizen citizen2 = new Citizen("111111111", "citizen2", "Iliana", "Natsiou", "ili.na@example.com");
 		TravelAgency travelAgency2 = new TravelAgency("222222222", "travel2", "Adventure Trips", "Dimitris Smith");
@@ -43,7 +43,7 @@ public class HelloServiceConfig implements CommandLineRunner {
 		hs.bookTrip(trip2.getID(), citizen.getAfm(), 6);
 		hs.bookTrip(trip2.getID(), citizen2.getAfm(), 13);
 		hs.bookTrip(trip2.getID(), citizen3.getAfm(), 5); // >20
-		hs.bookTrip(trip2.getID(), citizen3.getAfm(), 1);
+		hs.bookTrip(trip2.getID(), citizen3.getAfm(), 1);*/
 
 	}
 

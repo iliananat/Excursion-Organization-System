@@ -1,5 +1,6 @@
 package com.example.demo.hello;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,14 +74,14 @@ public class HelloController {
     
     // Log in user and redirect
     @PostMapping(path="/login")
-    public String login(@RequestBody Map<String, String> loginRequest) throws Exception{
+    public User login(@RequestBody Map<String, String> loginRequest) throws Exception{
         String afm = loginRequest.get("afm");
         String password = loginRequest.get("password");
         User loggedUser = hs.login(afm, password);
         
         if (loggedUser != null) {
             System.out.println("Logged in successfully!");
-            return "redirect:/" + afm;
+            return loggedUser;
         } else {
             System.out.println("Wrong AFM or Password!");
             return null;
