@@ -64,7 +64,6 @@ public class HelloService {
 	            throw new IllegalArgumentException("Invalid registration for user");
 	        }
     	}catch (IllegalArgumentException e) {
-            // Handle the exception here (e.g., log it or take other appropriate actions)
             System.err.println("Error during user registration: " + e.getMessage());
         }
     }
@@ -115,14 +114,15 @@ public class HelloService {
 
 		// Check if there are available seat
 		if (selectedTrip.getAvailableSeats() >= 0) {
-				// Update booked seats
+				// Update booked seats of trip
 				tripRepository.save(selectedTrip);
 				// Save booking
 				Booking booking = new Booking(selectedTrip, currCitizen, numOfPeopleBooked);
 				bookingRepository.save(booking);
 				return true; // Booking successful
-		} else {selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);}
-		return false; // No seats
+		} else {selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);
+				return false; // No seats
+		}
 	}
 	
 	

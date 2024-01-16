@@ -18,19 +18,19 @@ public class HelloServiceConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Citizen citizen = new Citizen("182710913", "citizen1", "Maria", "Pantazi", "john.doe@example.com");
-		TravelAgency travelAgency = new TravelAgency("987654322", "travel1", "Adventure Tours", "Georgia Smith");
+		Citizen citizen = new Citizen("182710913", "citizen1", "Maria", "Pantazi", "maria.pa@example.com");
 		Citizen citizen2 = new Citizen("177592412", "citizen2", "Iliana", "Natsiou", "ili.na@example.com");
-		TravelAgency travelAgency2 = new TravelAgency("917843547", "travel2", "Adventure Trips", "Dimitris Jones");
 		Citizen citizen3 = new Citizen("252960920", "citizen3", "Dimitris", "Kalaitzidis", "kalai@example.com");
 		Citizen citizen4 = new Citizen("131704365", "citizen4", "Giorgos", "Xatziparaskeuas", "xatzi@example.com");
+		TravelAgency travelAgency = new TravelAgency("987654322", "travel1", "Adventure Tours", "Georgia Smith");
+		TravelAgency travelAgency2 = new TravelAgency("917843547", "travel2", "Adventure Trips", "Dimitris Jones");
 		TravelAgency travelAgency3 = new TravelAgency("890923412", "travel3", "WeTravel", "Kostas Papadopoulos");
 		hs.registerUser(citizen);
-		hs.registerUser(travelAgency);
-		hs.registerUser(travelAgency2);	
 		hs.registerUser(citizen2);
 		hs.registerUser(citizen3);
 		hs.registerUser(citizen4);
+		hs.registerUser(travelAgency);
+		hs.registerUser(travelAgency2);	
 		hs.registerUser(travelAgency3);
 		
 		Trip trip = new Trip(travelAgency, LocalDate.of(2024, 01, 19), LocalDate.of(2024, 01, 22), "Athens", "Crete", "http://localhost/Tours/Schedule1.html", 53);

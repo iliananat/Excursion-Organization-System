@@ -32,6 +32,7 @@ public class HelloController {
 		return hs.getAllTrips();
 	}
 	
+	// Get citizen's booked trips
 	@GetMapping(path="/{afm}/mybookedTrips")
 	public List<Booking> myBookedTrips(@PathVariable String afm) throws Exception {
 		User loggedInUser = hs.getLoggedInUser(afm);
@@ -42,6 +43,7 @@ public class HelloController {
 
 	}
 	
+	// Get travel agency trips
 	@GetMapping(path="/{afm}/mytravelAgencyTrips")
 	public List<Trip> travelAgencyTrips(@PathVariable String afm) throws Exception {
 		User loggedInUser = hs.getLoggedInUser(afm);
@@ -58,20 +60,21 @@ public class HelloController {
 		}
 	}
 	
+	// Register Citizen
     @PostMapping(path="/register/citizen")
     public void registerCitizen(@RequestBody Citizen c) {
         Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
         hs.registerUser(citizen);
     }
  
-
+    // Register Travel Agency
     @PostMapping(path="/register/travel-agency")
     public void registerTravelAgency(@RequestBody TravelAgency t) {
         TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
         hs.registerUser(travelAgency);
     }
     
-    // Log in user and redirect
+    // Log in user
     @PostMapping(path="/login")
     public User login(@RequestBody Map<String, String> loginRequest) throws Exception{
         String afm = loginRequest.get("afm");
@@ -88,14 +91,14 @@ public class HelloController {
         
     }
     
-    // Logout User and redirect
+    // Logout User
     @PostMapping(path="/{afm}/logout")
     public String logout(@PathVariable String afm) throws Exception{
     	if (hs.isLoggedIn(afm)) {
     		hs.logout(afm);
-    		return "redirect:/";
+    		return "Succesfully logout";
     	} else {
-    		return null;
+    		return "Did not log out";
     	}
     }
     

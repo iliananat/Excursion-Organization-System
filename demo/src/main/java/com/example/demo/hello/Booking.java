@@ -13,12 +13,15 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name = "citizen_booked_afm")
 	private Citizen citizenBooked;
+	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "trip_booked_id")
 	private Trip tripBooked;
+	
 	private int numOfPeopleBooked;
 	
 	public Booking(){}

@@ -38,7 +38,7 @@ public class Citizen extends User{
 
 	@Override
 	public boolean isValidRegistration() {
-	    // Check if required fields are not null or empty
+	    // Check if required fields are not null or empty and if Afm is valid
 	    return this.afm != null && !this.afm.isEmpty() && isValidAfm(afm) &&
 	           this.password != null && !this.password.isEmpty() &&
 	           this.firstName != null && !this.firstName.isEmpty() &&
