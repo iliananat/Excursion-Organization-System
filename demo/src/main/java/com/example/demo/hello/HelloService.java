@@ -56,11 +56,16 @@ public class HelloService {
 	
 	// Register User
     public void registerUser(User user) {
-        if (user.isValidRegistration() && 
-        		!userRepository.existsById(user.getAfm())) {
-            userRepository.save(user);
-        } else {
-            throw new IllegalArgumentException("Invalid registration for user");
+    	try {
+	        if (user.isValidRegistration() && 
+	        		!userRepository.existsById(user.getAfm())) {
+	            userRepository.save(user);
+	        } else {
+	            throw new IllegalArgumentException("Invalid registration for user");
+	        }
+    	}catch (IllegalArgumentException e) {
+            // Handle the exception here (e.g., log it or take other appropriate actions)
+            System.err.println("Error during user registration: " + e.getMessage());
         }
     }
     
@@ -113,7 +118,7 @@ public class HelloService {
 				// Update booked seats
 				tripRepository.save(selectedTrip);
 				// Save booking
-				Booking booking = new Booking(selectedTrip, currCitizen);
+				Booking booking = new Booking(selectedTrip, currCitizen, numOfPeopleBooked);
 				bookingRepository.save(booking);
 				return true; // Booking successful
 		} else {selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);}

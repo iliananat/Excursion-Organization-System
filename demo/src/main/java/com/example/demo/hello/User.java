@@ -2,6 +2,8 @@ package com.example.demo.hello;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -9,6 +11,7 @@ import javax.persistence.*;
 public abstract class User {
 	@Id
 	protected String afm;
+	@JsonIgnore
 	protected String password;
 	
 	public User(){}
@@ -18,6 +21,7 @@ public abstract class User {
 		this.password = password;
 	}
 	
+	@JsonIgnore
 	public abstract boolean isValidRegistration();
 	public abstract String getUserType();
 	

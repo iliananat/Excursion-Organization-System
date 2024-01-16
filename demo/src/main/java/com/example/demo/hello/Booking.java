@@ -19,12 +19,14 @@ public class Booking {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "trip_booked_id")
 	private Trip tripBooked;
+	private int numOfPeopleBooked;
 	
 	public Booking(){}
 	
-	public Booking(Trip tripBooked, Citizen citizenBooked) {
+	public Booking(Trip tripBooked, Citizen citizenBooked, int numOfPeopleBooked) {
 		this.tripBooked = tripBooked;
 		this.citizenBooked = citizenBooked;
+		this.numOfPeopleBooked = numOfPeopleBooked;
 	}
 
 	public Trip getTrip() {
@@ -33,6 +35,10 @@ public class Booking {
 	
 	public Citizen getBookedCitizen() {
 		return citizenBooked;
+	}
+	
+	public int getNumOfPeopleBooked() {
+		return numOfPeopleBooked;
 	}
 	
 	
