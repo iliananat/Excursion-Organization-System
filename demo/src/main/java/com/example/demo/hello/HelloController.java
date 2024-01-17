@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class HelloController {
+	private int attempts=0;
 
 	@Autowired
 	private HelloService hs;
@@ -82,10 +83,19 @@ public class HelloController {
         User loggedUser = hs.login(afm, password);
         
         if (loggedUser != null) {
+        	attempts=0;
             System.out.println("Logged in successfully!");
             return loggedUser;
         } else {
-            System.out.println("Wrong AFM or Password!");
+        	attempts++;
+            if(attempts<3) {
+            	System.out.print("Wrong AFM or Password! "+(3-attempts)+" attempts remaining.");
+            }else {
+            	attempts=0;
+            	System.out.println("Access forbidden. Wait 10 seconds and try again");
+            	Thread.sleep(10000);
+            	System.out.println("3 attempts remaining");
+            }
             return null;
         }
         

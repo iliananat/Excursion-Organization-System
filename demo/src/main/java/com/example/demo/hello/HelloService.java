@@ -154,9 +154,14 @@ public class HelloService {
 		}
 		
 		if(depLoc!=null) {
+			int locLength=depLoc.length();
 			int index=0;
 			while(index<temp.size()) {
-				if(!temp.get(index).getDepLocation().equals(depLoc)) {
+				String comp="";
+				for(int j=0;j<locLength;j++) {
+					comp=comp+temp.get(index).getDepLocation().charAt(j);
+				}
+				if(!comp.toLowerCase().equals(depLoc.toLowerCase())) {
 					temp.remove(index);
 				}else {
 					index++;
@@ -165,9 +170,14 @@ public class HelloService {
 		}
 
 		if(destLoc!=null) {
+			int destLength=destLoc.length();
 			int index=0;
 			while(index<temp.size()) {
-				if(!temp.get(index).getDestLocation().equals(destLoc)) {
+				String comp="";
+				for(int j=0;j<destLength;j++) {
+					comp=comp+temp.get(index).getDestLocation().charAt(j);
+				}
+				if(!comp.toLowerCase().equals(destLoc.toLowerCase())) {
 					temp.remove(index);
 				}else {
 					index++;
