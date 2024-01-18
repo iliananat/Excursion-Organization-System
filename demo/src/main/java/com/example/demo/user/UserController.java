@@ -1,7 +1,5 @@
 package com.example.demo.user;
 
-import com.example.demo.hello.Citizen;
-import com.example.demo.hello.TravelAgency;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

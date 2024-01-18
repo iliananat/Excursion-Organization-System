@@ -8,6 +8,8 @@ import com.example.demo.booking.Booking;
 import com.example.demo.booking.BookingRepository;
 import com.example.demo.trip.Trip;
 import com.example.demo.trip.TripRepository;
+import com.example.demo.user.Citizen;
+import com.example.demo.user.TravelAgency;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

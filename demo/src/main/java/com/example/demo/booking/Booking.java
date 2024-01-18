@@ -1,6 +1,6 @@
 package com.example.demo.booking;
 
-import com.example.demo.hello.Citizen;
+import com.example.demo.user.Citizen;
 import com.example.demo.trip.Trip;
 
 import javax.persistence.CascadeType;
