@@ -1,7 +1,7 @@
 package com.example.demo.hello;
 
 import com.example.demo.user.User;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 
 @Entity
@@ -14,8 +14,8 @@ public class Citizen extends User {
 	
 	public Citizen(){}
 	
-	public Citizen(String afm, String password, String firstName, String lastName, String email) {
-		super(afm, password);
+	public Citizen(String afm, String password, String firstName, String lastName, String email, PasswordEncoder passwordEncoder) {
+		super(afm, password, passwordEncoder);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

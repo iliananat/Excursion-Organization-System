@@ -1,5 +1,8 @@
 package com.example.demo.user;
 
+import com.example.demo.hello.Citizen;
+import com.example.demo.hello.TravelAgency;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,9 @@ import java.util.Map;
 @RequestMapping("/api/user")
 public class UserController {
     private int attempts = 0;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -36,5 +42,17 @@ public class UserController {
             }
             return null;
         }
+    }
+
+    @PostMapping(path="/register/citizen")
+    public void registerCitizen(@RequestBody Citizen c) {
+        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail(), passwordEncoder);
+        userService.registerUser(citizen);
+    }
+
+    @PostMapping(path="/register/travel-agency")
+    public void registerTravelAgency(@RequestBody TravelAgency t) {
+        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner(), passwordEncoder);
+        userService.registerUser(travelAgency);
     }
 }

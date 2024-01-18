@@ -1,7 +1,7 @@
 package com.example.demo.hello;
 
 import com.example.demo.user.User;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +13,8 @@ public class TravelAgency extends User {
 
     public TravelAgency() {}
 
-    public TravelAgency(String afm, String password, String name, String owner) {
-        super(afm, password);
+    public TravelAgency(String afm, String password, String name, String owner, PasswordEncoder passwordEncoder) {
+        super(afm, password, passwordEncoder);
         this.name = name;
         this.owner = owner;
     }

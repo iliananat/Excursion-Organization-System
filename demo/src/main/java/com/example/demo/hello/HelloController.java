@@ -14,19 +14,6 @@ public class HelloController {
 	@Autowired
 	private HelloService hs;
 	
-	@GetMapping(path="/")
-	public String homePage() {
-		return "Home Page";
-	}
-	
-	@GetMapping(path="/{afm}")
-	public String userPage(@PathVariable String afm) {
-		if (hs.isLoggedIn(afm)) {
-			return "userPage"; 
-		}
-		return null;
-	}
-	
 	@GetMapping(path="/trips")
 	public List<Trip> getAllTrips() throws Exception {
 		return hs.getAllTrips();
@@ -59,31 +46,6 @@ public class HelloController {
 			hs.addTrip(t);
 		}
 	}
-	
-	// Register Citizen
-    @PostMapping(path="/register/citizen")
-    public void registerCitizen(@RequestBody Citizen c) {
-        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
-        hs.registerUser(citizen);
-    }
- 
-    // Register Travel Agency
-    @PostMapping(path="/register/travel-agency")
-    public void registerTravelAgency(@RequestBody TravelAgency t) {
-        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
-        hs.registerUser(travelAgency);
-    }
-    
-    // Logout User
-    @PostMapping(path="/{afm}/logout")
-    public String logout(@PathVariable String afm) throws Exception{
-    	if (hs.isLoggedIn(afm)) {
-    		hs.logout(afm);
-    		return "Succesfully logout";
-    	} else {
-    		return "Did not log out";
-    	}
-    }
     
     // Booking a trip
     @PostMapping(path="/{afm}/booking")

@@ -15,4 +15,16 @@ public class UserService {
         }
         return null;
     }
+
+    public void registerUser(User user) {
+        try {
+            if (user.isValidRegistration() && !userRepository.existsById(user.getAfm())) {
+                userRepository.save(user);
+            } else {
+                throw new IllegalArgumentException("Invalid registration for user");
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error during user registration: " + e.getMessage());
+        }
+    }
 }
