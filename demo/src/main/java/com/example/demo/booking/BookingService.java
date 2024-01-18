@@ -7,6 +7,9 @@ import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class BookingService {
     @Autowired
@@ -42,5 +45,18 @@ public class BookingService {
             selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);
             return false; // No seats
         }
+    }
+
+    public List<Booking> getMyBookings(String afm) {
+        Citizen citizen = (Citizen) userRepository.findById(afm).orElse(null);
+        List<Booking> bookings = bookingRepository.findAll();
+        List<Booking> myBookings = new ArrayList<>();
+
+        for (Booking booking : bookings) {
+            if (booking.getBookedCitizen().equals(citizen)) {
+                myBookings.add(booking);
+            }
+        }
+        return myBookings;
     }
 }

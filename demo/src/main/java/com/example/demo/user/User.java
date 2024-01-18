@@ -34,6 +34,8 @@ public abstract class User {
     @JsonIgnore
     public abstract boolean isValidRegistration();
 
+    public abstract String getUserType();
+
     public String getAfm() {
         return this.afm;
     }

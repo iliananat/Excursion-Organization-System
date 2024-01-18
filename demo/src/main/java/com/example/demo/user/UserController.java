@@ -1,7 +1,9 @@
 package com.example.demo.user;
 
 import com.example.demo.config.InfoResponse;
+import com.example.demo.config.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +15,19 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
+
+    @GetMapping(path = "/me")
+    public User getMe(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return userService.getUserFromToken(authorizationHeader);
+    }
 
     @GetMapping(path = "/{afm}")
     public User getUser(@PathVariable String afm) {
@@ -37,7 +46,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
         } else {
             if (user.isPasswordCorrect(password, passwordEncoder)) {
-                return ResponseEntity.ok(user);
+                return ResponseEntity.ok(new InfoResponse(jwtService.generateJwtToken(user.getAfm())));
             } else {
                 user.setLoginAttempts(user.getLoginAttempts() + 1);
                 userService.updateUser(user);
@@ -47,14 +56,12 @@ public class UserController {
     }
 
     @PostMapping(path = "/register/citizen")
-    public void registerCitizen(@RequestBody Citizen c) {
-        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
+    public void registerCitizen(@RequestBody Citizen citizen) {
         userService.registerUser(citizen);
     }
 
     @PostMapping(path = "/register/travel-agency")
-    public void registerTravelAgency(@RequestBody TravelAgency t) {
-        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
+    public void registerTravelAgency(@RequestBody TravelAgency travelAgency) {
         userService.registerUser(travelAgency);
     }
 }

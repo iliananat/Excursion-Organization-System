@@ -1,8 +1,5 @@
 package com.example.demo.trip;
 
-import com.example.demo.booking.Booking;
-import com.example.demo.booking.BookingRepository;
-import com.example.demo.user.Citizen;
 import com.example.demo.user.TravelAgency;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +12,6 @@ import java.util.List;
 @Service
 public class TripService {
     @Autowired
-    private BookingRepository bookingRepository;
-
-    @Autowired
     private TripRepository tripRepository;
 
     @Autowired
@@ -29,19 +23,6 @@ public class TripService {
 
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
-    }
-
-    public List<Booking> getMyBookings(String afm) {
-        Citizen citizen = (Citizen) userRepository.findById(afm).orElse(null);
-        List<Booking> bookings = bookingRepository.findAll();
-        List<Booking> myBookings = new ArrayList<>();
-
-        for (Booking booking : bookings) {
-            if (booking.getBookedCitizen().equals(citizen)) {
-                myBookings.add(booking);
-            }
-        }
-        return myBookings;
     }
 
     public List<Trip> getTravelAgencyTrips(String afm) {
