@@ -3,12 +3,14 @@ package com.example.demo.user;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @DiscriminatorValue("citizen")
 public class Citizen extends User {
     private String firstName;
     private String lastName;
+    @Email(message = "Please provide a valid email address")
     private String email;
 
     public Citizen() {
@@ -22,15 +24,15 @@ public class Citizen extends User {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getUserType() {

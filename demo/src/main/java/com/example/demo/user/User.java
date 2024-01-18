@@ -1,6 +1,7 @@
 package com.example.demo.user;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class User {
     @Id
     protected String afm;
+    @Column(nullable = false)
+    @NotNull(message = "The password cannot be null")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected String password;
 

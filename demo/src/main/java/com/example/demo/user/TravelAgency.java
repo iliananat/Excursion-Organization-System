@@ -19,17 +19,12 @@ public class TravelAgency extends User {
         this.owner = owner;
     }
 
-    @Override
-    public String getAfm() {
-        return afm;
-    }
-
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getOwner() {
-        return owner;
+        return this.owner;
     }
 
     public String getUserType() {
