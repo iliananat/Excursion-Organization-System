@@ -1,14 +1,12 @@
 package com.example.demo.user;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 @DiscriminatorValue("citizen")
 public class Citizen extends User {
     private String firstName;
     private String lastName;
-    @Email(message = "Please provide a valid email address")
     private String email;
 
     public Citizen() {
