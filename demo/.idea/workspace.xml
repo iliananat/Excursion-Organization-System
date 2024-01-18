@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update validation afm">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/config/JwtService.java" afterDir="false" />
+    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Add jwt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/hello/HelloServiceConfig.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1705572903871</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add jwt">
+      <option name="closed" value="true" />
+      <created>1705589754398</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705589754398</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add jwt">
+      <option name="closed" value="true" />
+      <created>1705590019631</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705590019631</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +182,7 @@
     <MESSAGE value="Update password field" />
     <MESSAGE value="Update validation" />
     <MESSAGE value="Update validation afm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update validation afm" />
+    <MESSAGE value="Add jwt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add jwt" />
   </component>
 </project>

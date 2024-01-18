@@ -1,6 +1,7 @@
 package com.example.demo.trip;
 
 import com.example.demo.config.InfoResponse;
+import com.example.demo.user.TravelAgency;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class TripController {
     public ResponseEntity<?> addTrip(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody Trip trip) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null && user.getUserType().equals("travel_agency")) {
+            trip.setTravelAgency((TravelAgency) user);
             tripService.addTrip(trip);
             return ResponseEntity.ok(new InfoResponse("Ολοκληρώθηκε με επιτυχία!"));
         }

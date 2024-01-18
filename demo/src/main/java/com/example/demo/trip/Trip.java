@@ -72,10 +72,6 @@ public class Trip {
 		return bookedSeats;
 	}
 
-	public void setBookedSeats(int bookedSeats) {
-		this.bookedSeats = bookedSeats;
-	}
-
 	public int getMaxNumOfParticipants() {
 		return maxNumOfParticipants;
 	}
@@ -84,6 +80,11 @@ public class Trip {
 		return schedule;
 	}
 
+	public void setBookedSeats(int bookedSeats) {
+		this.bookedSeats = bookedSeats;
+	}
 
-	
+	public void setTravelAgency(TravelAgency travelAgency) {
+		this.travelAgency = travelAgency;
+	}
 }
