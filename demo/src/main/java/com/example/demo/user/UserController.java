@@ -1,7 +1,10 @@
 package com.example.demo.user;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.demo.hello.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -10,7 +13,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private int attempts = 0;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -24,38 +26,35 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public User login(@RequestBody Map<String, String> loginRequest) throws Exception {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
         String afm = loginRequest.get("afm");
         String password = loginRequest.get("password");
-        User loggedUser = userService.login(afm, password);
+        User user = userService.getUser(afm);
 
-        if (loggedUser != null) {
-            attempts = 0;
-            System.out.println("Logged in successfully!");
-            return loggedUser;
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("User not found"));
+        } else if (user.getLoginAttempts() > 2) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Access forbidden. Contact administrator"));
         } else {
-            attempts++;
-            if (attempts < 3) {
-                System.out.print("Wrong AFM or Password! " + (3 - attempts) + " attempts remaining.");
+            if (user.isPasswordCorrect(password, passwordEncoder)) {
+                return ResponseEntity.ok(user);
             } else {
-                attempts = 0;
-                System.out.println("Access forbidden. Wait 10 seconds and try again");
-                Thread.sleep(10000);
-                System.out.println("3 attempts remaining");
+                user.setLoginAttempts(user.getLoginAttempts() + 1);
+                userService.updateUser(user);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Wrong credentials! " + (3 - user.getLoginAttempts()) + " attempts remaining."));
             }
-            return null;
         }
     }
 
     @PostMapping(path = "/register/citizen")
     public void registerCitizen(@RequestBody Citizen c) {
-        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail(), passwordEncoder);
+        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
         userService.registerUser(citizen);
     }
 
     @PostMapping(path = "/register/travel-agency")
     public void registerTravelAgency(@RequestBody TravelAgency t) {
-        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner(), passwordEncoder);
+        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
         userService.registerUser(travelAgency);
     }
 }

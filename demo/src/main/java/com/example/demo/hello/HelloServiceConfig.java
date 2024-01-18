@@ -10,7 +10,6 @@ import org.springframework.context.annotation.*;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class HelloServiceConfig implements CommandLineRunner {
@@ -18,20 +17,17 @@ public class HelloServiceConfig implements CommandLineRunner {
 	private HelloService helloService;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
 	private UserService userService;
 
 	@Override
 	public void run(String... args) throws Exception {
-//        Citizen citizen = new Citizen("182710913", "citizen1", "Maria", "Pantazi", "maria.pa@example.com", passwordEncoder);
-//        Citizen citizen2 = new Citizen("177592412", "citizen2", "Iliana", "Natsiou", "ili.na@example.com", passwordEncoder);
-//        Citizen citizen3 = new Citizen("252960920", "citizen3", "Dimitris", "Kalaitzidis", "kalai@example.com", passwordEncoder);
-//        Citizen citizen4 = new Citizen("131704365", "citizen4", "Giorgos", "Xatziparaskeuas", "xatzi@example.com", passwordEncoder);
-//        TravelAgency travelAgency = new TravelAgency("987654322", "travel1", "Adventure Tours", "Georgia Smith", passwordEncoder);
-//        TravelAgency travelAgency2 = new TravelAgency("917843547", "travel2", "Adventure Trips", "Dimitris Jones", passwordEncoder);
-//        TravelAgency travelAgency3 = new TravelAgency("890923412", "travel3", "WeTravel", "Kostas Papadopoulos", passwordEncoder);
+//        Citizen citizen = new Citizen("801962655", "Citizen1!", "Maria", "Pantazi", "maria.pa@example.com");
+//        Citizen citizen2 = new Citizen("998934837", "Citizen2!", "Iliana", "Natsiou", "ili.na@example.com");
+//        Citizen citizen3 = new Citizen("999940368", "Citizen3!", "Dimitris", "Kalaitzidis", "kalai@example.com");
+//        Citizen citizen4 = new Citizen("998902920", "Citizen4!", "Giorgos", "Xatziparaskeuas", "xatzi@example.com");
+//        TravelAgency travelAgency = new TravelAgency("800449340", "Travel1!", "Adventure Tours", "Georgia Smith");
+//        TravelAgency travelAgency2 = new TravelAgency("800491751", "Travel2!", "Adventure Trips", "Dimitris Jones");
+//        TravelAgency travelAgency3 = new TravelAgency("801508680", "Travel3!", "WeTravel", "Kostas Papadopoulos");
 //        userService.registerUser(citizen);
 //        userService.registerUser(citizen2);
 //        userService.registerUser(citizen3);

@@ -1,7 +1,5 @@
 package com.example.demo.user;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
@@ -16,8 +14,8 @@ public class Citizen extends User {
     public Citizen() {
     }
 
-    public Citizen(String afm, String password, String firstName, String lastName, String email, PasswordEncoder passwordEncoder) {
-        super(afm, password, passwordEncoder);
+    public Citizen(String afm, String password, String firstName, String lastName, String email) {
+        super(afm, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -42,7 +40,7 @@ public class Citizen extends User {
     @Override
     public boolean isValidRegistration() {
         // Check if required fields are not null or empty and if Afm is valid
-        return this.afm != null && !this.afm.isEmpty() && isValidAfm(afm) &&
+        return this.afm != null && !this.afm.isEmpty() && isValidAfm(this.afm) &&
                 this.password != null && !this.password.isEmpty() && isPasswordValid(this.password) &&
                 this.firstName != null && !this.firstName.isEmpty() &&
                 this.lastName != null && !this.lastName.isEmpty() &&

@@ -20,13 +20,17 @@ public abstract class User {
     @NotNull(message = "The password cannot be null")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected String password;
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected int loginAttempts;
 
     public User() {
     }
 
-    public User(String afm, String password, PasswordEncoder passwordEncoder) {
+    public User(String afm, String password) {
         this.afm = afm;
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
+        this.loginAttempts = 0;
     }
 
     @JsonIgnore
@@ -36,8 +40,20 @@ public abstract class User {
         return this.afm;
     }
 
+    public int getLoginAttempts() {
+        return loginAttempts;
+    }
+
     public String getPassword() {
         return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setLoginAttempts(int loginAttempts) {
+        this.loginAttempts = loginAttempts;
     }
 
     public boolean isPasswordCorrect(String providedPassword, PasswordEncoder passwordEncoder) {

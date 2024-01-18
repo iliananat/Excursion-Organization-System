@@ -15,24 +15,13 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUser(String afm) {
-        User user = userRepository.findById(afm).orElse(null);
-        if (user != null) {
-            return user;
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-    }
-
-    public User login(String afm, String password) {
-        User user = userRepository.findById(afm).orElse(null);
-        if (user != null && user.isPasswordCorrect(password, passwordEncoder)) {
-            return user;
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        return userRepository.findById(afm).orElse(null);
     }
 
     public void registerUser(User user) {
         try {
             if (user.isValidRegistration() && !userRepository.existsById(user.getAfm())) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userRepository.save(user);
             } else {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Invalid registration for user");
@@ -40,5 +29,9 @@ public class UserService {
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
         }
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }
