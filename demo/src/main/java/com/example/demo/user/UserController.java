@@ -1,7 +1,5 @@
 package com.example.demo.user;
 
-import com.example.demo.hello.Citizen;
-import com.example.demo.hello.TravelAgency;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +42,13 @@ public class UserController {
         }
     }
 
-    @PostMapping(path="/register/citizen")
+    @PostMapping(path = "/register/citizen")
     public void registerCitizen(@RequestBody Citizen c) {
         Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail(), passwordEncoder);
         userService.registerUser(citizen);
     }
 
-    @PostMapping(path="/register/travel-agency")
+    @PostMapping(path = "/register/travel-agency")
     public void registerTravelAgency(@RequestBody TravelAgency t) {
         TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner(), passwordEncoder);
         userService.registerUser(travelAgency);

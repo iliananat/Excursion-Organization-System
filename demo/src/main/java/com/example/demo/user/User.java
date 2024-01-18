@@ -1,6 +1,7 @@
 package com.example.demo.user;
 
 import javax.persistence.*;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

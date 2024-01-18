@@ -1,5 +1,7 @@
 package com.example.demo.hello;
 
+import com.example.demo.user.Citizen;
+import com.example.demo.user.TravelAgency;
 import com.example.demo.user.UserService;
 import org.springframework.boot.*;
 import org.springframework.context.annotation.*;

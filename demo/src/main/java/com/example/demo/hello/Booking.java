@@ -1,5 +1,7 @@
 package com.example.demo.hello;
 
+import com.example.demo.user.Citizen;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
