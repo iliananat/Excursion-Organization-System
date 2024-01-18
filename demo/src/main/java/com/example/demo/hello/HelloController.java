@@ -3,6 +3,9 @@ package com.example.demo.hello;
 import java.util.List;
 import java.util.Map;
 
+import com.example.demo.booking.Booking;
+import com.example.demo.trip.Trip;
+import com.example.demo.user.User;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 

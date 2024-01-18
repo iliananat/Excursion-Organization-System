@@ -3,6 +3,13 @@ package com.example.demo.hello;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.example.demo.booking.Booking;
+import com.example.demo.booking.BookingRepository;
+import com.example.demo.trip.Trip;
+import com.example.demo.trip.TripRepository;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
