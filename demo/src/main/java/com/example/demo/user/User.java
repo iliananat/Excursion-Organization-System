@@ -43,6 +43,19 @@ public abstract class User {
 
     public boolean isValidAfm(String afm) {
         // Check if the AFM is not null and has exactly 9 digits
-        return afm != null && afm.length() == 9 && afm.matches("\\d+");
+        boolean isNineDigits = afm != null && afm.length() == 9 && afm.matches("\\d+");
+        if (isNineDigits) {
+            int multiplier = 2;
+            int sum = 0;
+            for (int i = afm.length() - 2; i > -1; i--) {
+                sum += Character.getNumericValue(afm.charAt(i)) * multiplier;
+                multiplier *= 2;
+            }
+            int modulo = sum % 11;
+            return (modulo == 10 && afm.charAt(afm.length() - 1) == '0') ||
+                    (modulo != 10 && modulo == Character.getNumericValue(afm.charAt(afm.length() - 1)));
+        } else {
+            return false;
+        }
     }
 }
