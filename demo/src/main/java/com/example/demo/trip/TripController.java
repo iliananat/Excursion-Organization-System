@@ -1,19 +1,10 @@
 package com.example.demo.trip;
 
 import com.example.demo.booking.Booking;
-import com.example.demo.hello.ErrorResponse;
-import com.example.demo.user.Citizen;
-import com.example.demo.user.TravelAgency;
-import com.example.demo.user.User;
-import com.example.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

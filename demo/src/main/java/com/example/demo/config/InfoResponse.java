@@ -1,12 +1,12 @@
-package com.example.demo.hello;
+package com.example.demo.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ErrorResponse {
+public class InfoResponse {
     private String message;
 
-    public ErrorResponse(String message) {
+    public InfoResponse(String message) {
         this.message = message;
     }
 

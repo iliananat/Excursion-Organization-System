@@ -1,6 +1,6 @@
 package com.example.demo.user;
 
-import com.example.demo.hello.ErrorResponse;
+import com.example.demo.config.InfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +32,16 @@ public class UserController {
         User user = userService.getUser(afm);
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new InfoResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη"));
         } else if (user.getLoginAttempts() > 2) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Απαγορεύτηκε η είσοδος"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
         } else {
             if (user.isPasswordCorrect(password, passwordEncoder)) {
                 return ResponseEntity.ok(user);
             } else {
                 user.setLoginAttempts(user.getLoginAttempts() + 1);
                 userService.updateUser(user);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη. Απομένουν " + (3 - user.getLoginAttempts()) + " προσπάθειες."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new InfoResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη. Απομένουν " + (3 - user.getLoginAttempts()) + " προσπάθειες."));
             }
         }
     }
