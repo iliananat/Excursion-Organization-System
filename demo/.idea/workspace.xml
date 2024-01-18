@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update validation">
+    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update validation afm">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/Citizen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/Citizen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/TravelAgency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/TravelAgency.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -130,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705572555491</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update validation afm">
+      <option name="closed" value="true" />
+      <created>1705572903871</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705572903871</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +155,7 @@
     <MESSAGE value="Add get User" />
     <MESSAGE value="Update password field" />
     <MESSAGE value="Update validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update validation" />
+    <MESSAGE value="Update validation afm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update validation afm" />
   </component>
 </project>
