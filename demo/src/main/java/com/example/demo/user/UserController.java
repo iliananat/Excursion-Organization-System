@@ -32,16 +32,16 @@ public class UserController {
         User user = userService.getUser(afm);
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("User not found"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη"));
         } else if (user.getLoginAttempts() > 2) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Access forbidden. Contact administrator"));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Απαγορεύτηκε η είσοδος"));
         } else {
             if (user.isPasswordCorrect(password, passwordEncoder)) {
                 return ResponseEntity.ok(user);
             } else {
                 user.setLoginAttempts(user.getLoginAttempts() + 1);
                 userService.updateUser(user);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Wrong credentials! " + (3 - user.getLoginAttempts()) + " attempts remaining."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Λάθος Όνομα Χρήστη ή Κωδικός Χρήστη. Απομένουν " + (3 - user.getLoginAttempts()) + " προσπάθειες."));
             }
         }
     }
