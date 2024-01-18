@@ -1,6 +1,5 @@
 package com.example.demo.user;
 
-import com.example.demo.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;

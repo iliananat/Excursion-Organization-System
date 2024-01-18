@@ -18,6 +18,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping(path = "/{afm}")
+    public User getUser(@PathVariable String afm) {
+        return userService.getUser(afm);
+    }
+
     @PostMapping(path = "/login")
     public User login(@RequestBody Map<String, String> loginRequest) throws Exception {
         String afm = loginRequest.get("afm");
