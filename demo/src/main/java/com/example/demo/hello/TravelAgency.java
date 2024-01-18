@@ -1,5 +1,7 @@
 package com.example.demo.hello;
 
+import com.example.demo.user.User;
+
 import javax.persistence.*;
 
 @Entity

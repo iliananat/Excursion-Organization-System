@@ -1,10 +1,12 @@
 package com.example.demo.hello;
 
+import com.example.demo.user.User;
+
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("citizen")
-public class Citizen extends User{
+public class Citizen extends User {
 
 	private String firstName;
 	private String lastName;

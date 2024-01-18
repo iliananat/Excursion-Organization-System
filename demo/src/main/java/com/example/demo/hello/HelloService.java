@@ -3,6 +3,9 @@ package com.example.demo.hello;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
@@ -66,16 +69,6 @@ public class HelloService {
     	}catch (IllegalArgumentException e) {
             System.err.println("Error during user registration: " + e.getMessage());
         }
-    }
-    
-    // Login User
-    public User login(String afm, String password) throws Exception{
-    	User loginUser = userRepository.findById(afm).orElse(null);
-    	if(loginUser != null && loginUser.getPassword().equals(password)) {
-    		loggedInUsers.put(loginUser.getAfm(), loginUser);
-    		return loginUser;
-    	}
-    	return null;
     }
     
     // Logout User
