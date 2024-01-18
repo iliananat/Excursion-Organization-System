@@ -2,6 +2,7 @@ package com.example.demo.user;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class User {
     @Id
     protected String afm;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     protected String password;
 
     public User() {
@@ -26,11 +27,11 @@ public abstract class User {
     public abstract boolean isValidRegistration();
 
     public String getAfm() {
-        return afm;
+        return this.afm;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public boolean isPasswordCorrect(String providedPassword, PasswordEncoder passwordEncoder) {
