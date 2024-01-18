@@ -19,7 +19,7 @@ public class BookingController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(path="/")
+    @PostMapping(path="")
     public ResponseEntity<?> bookTrip(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestParam Long tripID, @RequestParam int numOfPeopleBooked) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null && user.getUserType().equals("citizen")) {

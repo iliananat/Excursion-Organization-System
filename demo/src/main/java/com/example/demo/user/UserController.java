@@ -30,8 +30,13 @@ public class UserController {
     }
 
     @GetMapping(path = "/{afm}")
-    public User getUser(@PathVariable String afm) {
-        return userService.getUser(afm);
+    public ResponseEntity<?> getUser(@PathVariable String afm) {
+        User user = userService.getUser(afm);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new InfoResponse("Λάθος Όνομα Χρήστη"));
+        }
     }
 
     @PostMapping(path = "/login")
