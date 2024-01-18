@@ -18,19 +18,6 @@ public class HelloController {
 	@Autowired
 	private HelloService hs;
 	
-	@GetMapping(path="/")
-	public String homePage() {
-		return "Home Page";
-	}
-	
-	@GetMapping(path="/{afm}")
-	public String userPage(@PathVariable String afm) {
-		if (hs.isLoggedIn(afm)) {
-			return "userPage"; 
-		}
-		return null;
-	}
-	
 	@GetMapping(path="/trips")
 	public List<Trip> getAllTrips() throws Exception {
 		return hs.getAllTrips();
@@ -63,46 +50,6 @@ public class HelloController {
 			hs.addTrip(t);
 		}
 	}
-	
-	// Register Citizen
-    @PostMapping(path="/register/citizen")
-    public void registerCitizen(@RequestBody Citizen c) {
-        Citizen citizen = new Citizen(c.getAfm(), c.getPassword(), c.getFirstName(), c.getLastName(), c.getEmail());
-        hs.registerUser(citizen);
-    }
- 
-    // Register Travel Agency
-    @PostMapping(path="/register/travel-agency")
-    public void registerTravelAgency(@RequestBody TravelAgency t) {
-        TravelAgency travelAgency = new TravelAgency(t.getAfm(), t.getPassword(), t.getName(), t.getOwner());
-        hs.registerUser(travelAgency);
-    }
-    
-    // Log in user
-    @PostMapping(path="/login")
-    public User login(@RequestBody Map<String, String> loginRequest) throws Exception{
-        String afm = loginRequest.get("afm");
-        String password = loginRequest.get("password");
-        User loggedUser = hs.login(afm, password);
-        
-        if (loggedUser != null) {
-        	attempts=0;
-            System.out.println("Logged in successfully!");
-            return loggedUser;
-        } else {
-        	attempts++;
-            if(attempts<3) {
-            	System.out.print("Wrong AFM or Password! "+(3-attempts)+" attempts remaining.");
-            }else {
-            	attempts=0;
-            	System.out.println("Access forbidden. Wait 10 seconds and try again");
-            	Thread.sleep(10000);
-            	System.out.println("3 attempts remaining");
-            }
-            return null;
-        }
-        
-    }
     
     // Logout User
     @PostMapping(path="/{afm}/logout")

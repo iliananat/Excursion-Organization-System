@@ -60,30 +60,6 @@ public class HelloService {
 		}
 		return travelAgencyTrips;
 	}
-	
-	// Register User
-    public void registerUser(User user) {
-    	try {
-	        if (user.isValidRegistration() && 
-	        		!userRepository.existsById(user.getAfm())) {
-	            userRepository.save(user);
-	        } else {
-	            throw new IllegalArgumentException("Invalid registration for user");
-	        }
-    	}catch (IllegalArgumentException e) {
-            System.err.println("Error during user registration: " + e.getMessage());
-        }
-    }
-    
-    // Login User
-    public User login(String afm, String password) throws Exception{
-    	User loginUser = userRepository.findById(afm).orElse(null);
-    	if(loginUser != null && loginUser.getPassword().equals(password)) {
-    		loggedInUsers.put(loginUser.getAfm(), loginUser);
-    		return loginUser;
-    	}
-    	return null;
-    }
     
     // Logout User
     public void logout(String afm) {
