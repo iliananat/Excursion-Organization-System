@@ -21,7 +21,7 @@ public class Trip {
 	private LocalDate endDate;
 	@Column(nullable = false)
 	private int maximumSeats;
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TEXT")
 	private String schedule;
 	@Column(nullable = false)
 	private LocalDate startDate;
@@ -66,6 +66,10 @@ public class Trip {
 
 	public LocalDate getEndDate() {
 		return this.endDate;
+	}
+
+	public Long getID() {
+		return this.id;
 	}
 
 	public int getMaximumSeats() {

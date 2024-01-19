@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update trip">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripSpecifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/config/DataConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/config/DataConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +87,7 @@
       <workItem from="1705544691373" duration="137000" />
       <workItem from="1705544838102" duration="17000" />
       <workItem from="1705628632760" duration="4429000" />
-      <workItem from="1705663559691" duration="3448000" />
+      <workItem from="1705663559691" duration="6156000" />
     </task>
     <task id="LOCAL-00001" summary="Update project structure">
       <option name="closed" value="true" />
@@ -245,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705665902565</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Update trip">
+      <option name="closed" value="true" />
+      <created>1705667069996</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1705667069996</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
