@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class BookingService {
         List<Booking> myBookings = new ArrayList<>();
 
         for (Booking booking : bookings) {
-            if (booking.getBookedCitizen().equals(citizen)) {
+            if (booking.getCitizen().equals(citizen)) {
                 myBookings.add(booking);
             }
         }
@@ -39,20 +40,24 @@ public class BookingService {
     }
 
     public ResponseEntity<?> insertBooking(BookingRequest bookingRequest, User user) {
-        int numOfPeopleBooked = bookingRequest.getNumOfPeopleBooked();
-        if (numOfPeopleBooked < 1) {
+        int seats = bookingRequest.getSeats();
+        if (seats < 1) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Ο αριθμός συμμετοχών πρέπει να είναι μεγαλύτερος του μηδενός"));
         }
         Trip trip = tripRepository.findById(bookingRequest.getTripID()).orElse(null);
         if (trip == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν υπάρχει η εκδρομή"));
         }
-        if (trip.getAvailableSeats() - numOfPeopleBooked < 0) {
+        if (trip.getAvailableSeats() - seats < 0) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν υπάρχουν διαθέσιμες θέσεις"));
         }
-        trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
+        LocalDate today = LocalDate.now();
+        if (today.isAfter(trip.getStartDate())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν μπορείτε πλέον να κλείσετε θέση"));
+        }
+        trip.setBookedSeats(trip.getBookedSeats() + seats);
         tripRepository.save(trip);
-        Booking booking = new Booking(trip, (Citizen) user, numOfPeopleBooked);
+        Booking booking = new Booking(trip, (Citizen) user, seats);
         bookingRepository.save(booking);
         return ResponseEntity.ok().body(new InfoResponse("Ολοκληρώθηκε με επιτυχία"));
     }

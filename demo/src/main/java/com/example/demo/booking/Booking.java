@@ -3,48 +3,29 @@ package com.example.demo.booking;
 import com.example.demo.user.Citizen;
 import com.example.demo.trip.Trip;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
-    @JoinColumn(name = "citizen_booked_afm")
-    private Citizen citizenBooked;
-
+    private Citizen citizen;
+    private int seats;
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "trip_booked_id")
-    private Trip tripBooked;
-
-    private int numOfPeopleBooked;
+    private Trip trip;
 
     public Booking() {
     }
 
-    public Booking(Trip tripBooked, Citizen citizenBooked, int numOfPeopleBooked) {
-        this.tripBooked = tripBooked;
-        this.citizenBooked = citizenBooked;
-        this.numOfPeopleBooked = numOfPeopleBooked;
+    public Booking(Trip trip, Citizen citizen, int seats) {
+        this.trip = trip;
+        this.citizen = citizen;
+        this.seats = seats;
     }
 
-    public Trip getTrip() {
-        return tripBooked;
-    }
-
-    public Citizen getBookedCitizen() {
-        return citizenBooked;
-    }
-
-    public int getNumOfPeopleBooked() {
-        return numOfPeopleBooked;
+    public Citizen getCitizen() {
+        return this.citizen;
     }
 }

@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingRequest {
-    private final int numOfPeopleBooked;
+    private final int seats;
     private final Long tripID;
 
-    public BookingRequest(int numOfPeopleBooked, Long tripID) {
-        this.numOfPeopleBooked = numOfPeopleBooked;
+    public BookingRequest(int seats, Long tripID) {
+        this.seats = seats;
         this.tripID = tripID;
     }
 
-    public int getNumOfPeopleBooked() {
-        return numOfPeopleBooked;
+    public int getSeats() {
+        return seats;
     }
 
     public Long getTripID() {
