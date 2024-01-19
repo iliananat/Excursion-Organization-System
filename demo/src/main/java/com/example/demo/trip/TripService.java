@@ -1,12 +1,9 @@
 package com.example.demo.trip;
 
-import com.example.demo.user.TravelAgency;
-import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,23 +11,12 @@ public class TripService {
     @Autowired
     private TripRepository tripRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<Trip> getAllTrips() {
+    public List<Trip> getCitizenTrips() {
         return tripRepository.findAll();
     }
 
     public List<Trip> getTravelAgencyTrips(String afm) {
-        TravelAgency travelAgency = (TravelAgency) userRepository.findById(afm).orElse(null);
-        List<Trip> allTrips = tripRepository.findAll();
-        List<Trip> travelAgencyTrips = new ArrayList<>();
-        for (Trip trip : allTrips) {
-            if (trip.getTravelAgency().getAfm().equals(travelAgency.getAfm())) {
-                travelAgencyTrips.add(trip);
-            }
-        }
-        return travelAgencyTrips;
+        return tripRepository.findByTravelAgency_Afm(afm);
     }
 
     public void insertTrip(Trip trip) {

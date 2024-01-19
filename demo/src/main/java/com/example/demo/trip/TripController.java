@@ -20,20 +20,15 @@ public class TripController {
     @Autowired
     private TripService tripService;
 
-    @GetMapping(path = "/trips")
+    @GetMapping(path = "")
     public ResponseEntity<?> getAllTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
         User user = userService.getUserFromToken(authorizationHeader);
-        if (user != null && user.getUserType().equals("citizen")) {
-            return ResponseEntity.ok(tripService.getAllTrips());
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
-    }
-
-    @GetMapping(path = "/travelAgencyTrips")
-    public ResponseEntity<?> travelAgencyTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        User user = userService.getUserFromToken(authorizationHeader);
-        if (user != null && user.getUserType().equals("travel_agency")) {
-            return ResponseEntity.ok(tripService.getTravelAgencyTrips(user.getAfm()));
+        if (user != null) {
+            if (user.getUserType().equals("citizen")) {
+                return ResponseEntity.ok(tripService.getCitizenTrips());
+            } else {
+                return ResponseEntity.ok(tripService.getTravelAgencyTrips(user.getAfm()));
+            }
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }
