@@ -1,10 +1,14 @@
 package com.example.demo.booking;
 
+import com.example.demo.config.InfoResponse;
 import com.example.demo.trip.Trip;
 import com.example.demo.trip.TripRepository;
 import com.example.demo.user.Citizen;
+import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,33 +25,7 @@ public class BookingService {
     @Autowired
     private UserRepository userRepository;
 
-    // Book Trip
-    public boolean bookTrip(Long tripID, String citizenAFM, int numOfPeopleBooked) {
-        Trip selectedTrip = tripRepository.findById(tripID).orElse(null);
-        Citizen currCitizen = (Citizen) userRepository.findById(citizenAFM).orElse(null);
-
-        // Validate inputs
-        if (selectedTrip == null || currCitizen == null || numOfPeopleBooked < 0) {
-            return false; // Invalid inputs
-        }
-
-        selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() + numOfPeopleBooked);
-
-        // Check if there are available seat
-        if (selectedTrip.getAvailableSeats() >= 0) {
-            // Update booked seats of trip
-            tripRepository.save(selectedTrip);
-            // Save booking
-            Booking booking = new Booking(selectedTrip, currCitizen, numOfPeopleBooked);
-            bookingRepository.save(booking);
-            return true; // Booking successful
-        } else {
-            selectedTrip.setBookedSeats(selectedTrip.getBookedSeats() - numOfPeopleBooked);
-            return false; // No seats
-        }
-    }
-
-    public List<Booking> getMyBookings(String afm) {
+    public List<Booking> getBookings(String afm) {
         Citizen citizen = (Citizen) userRepository.findById(afm).orElse(null);
         List<Booking> bookings = bookingRepository.findAll();
         List<Booking> myBookings = new ArrayList<>();
@@ -58,5 +36,24 @@ public class BookingService {
             }
         }
         return myBookings;
+    }
+
+    public ResponseEntity<?> insertBooking(BookingRequest bookingRequest, User user) {
+        int numOfPeopleBooked = bookingRequest.getNumOfPeopleBooked();
+        if (numOfPeopleBooked < 1) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Ο αριθμός συμμετοχών πρέπει να είναι μεγαλύτερος του μηδενός"));
+        }
+        Trip trip = tripRepository.findById(bookingRequest.getTripID()).orElse(null);
+        if (trip == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν υπάρχει η εκδρομή"));
+        }
+        if (trip.getAvailableSeats() - numOfPeopleBooked < 0) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν υπάρχουν διαθέσιμες θέσεις"));
+        }
+        trip.setBookedSeats(trip.getBookedSeats() + numOfPeopleBooked);
+        tripRepository.save(trip);
+        Booking booking = new Booking(trip, (Citizen) user, numOfPeopleBooked);
+        bookingRepository.save(booking);
+        return ResponseEntity.ok().body(new InfoResponse("Ολοκληρώθηκε με επιτυχία"));
     }
 }

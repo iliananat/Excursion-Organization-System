@@ -19,25 +19,20 @@ public class BookingController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(path="")
-    public ResponseEntity<?> bookTrip(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestParam Long tripID, @RequestParam int numOfPeopleBooked) {
+    @GetMapping(path = "")
+    public ResponseEntity<?> getBookings(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null && user.getUserType().equals("citizen")) {
-            boolean bookingResult = bookingService.bookTrip(tripID, user.getAfm(), numOfPeopleBooked);
-            if (bookingResult) {
-                return ResponseEntity.ok().body(new InfoResponse("Ολοκληρώθηκε με επιτυχία"));
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Δεν υπάρχουν διαθέσιμες θέσεις"));
-            }
+            return ResponseEntity.ok(bookingService.getBookings(user.getAfm()));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }
 
-    @GetMapping(path = "/bookedTrips")
-    public ResponseEntity<?> myBookedTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+    @PostMapping(path="")
+    public ResponseEntity<?> insertBooking(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody BookingRequest bookingRequest) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null && user.getUserType().equals("citizen")) {
-            return ResponseEntity.ok(bookingService.getMyBookings(user.getAfm()));
+            return bookingService.insertBooking(bookingRequest, user);
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }

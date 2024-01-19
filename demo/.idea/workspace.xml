@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Add jwt">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/booking/BookingService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +62,8 @@
       <recent name="C:\Projects\Excursion-Organization-System\demo\src\main\java\com\example\demo\user" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.demo.trip" />
       <recent name="com.example.demo.booking" />
+      <recent name="com.example.demo.trip" />
     </key>
   </component>
   <component name="RunManager">
@@ -175,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705590401469</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add jwt">
+      <option name="closed" value="true" />
+      <created>1705621935194</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1705621935194</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
