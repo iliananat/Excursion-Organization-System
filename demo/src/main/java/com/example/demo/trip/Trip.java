@@ -68,12 +68,20 @@ public class Trip {
 		return this.endDate;
 	}
 
-	public TravelAgency getTravelAgency() {
-		return this.travelAgency;
+	public int getMaximumSeats() {
+		return this.maximumSeats;
 	}
 
 	public LocalDate getStartDate() {
 		return this.startDate;
+	}
+
+	public String getSchedule() {
+		return this.schedule;
+	}
+
+	public TravelAgency getTravelAgency() {
+		return this.travelAgency;
 	}
 
 	public void setBookedSeats(int bookedSeats) {

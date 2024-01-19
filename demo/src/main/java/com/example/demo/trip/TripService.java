@@ -17,10 +17,6 @@ public class TripService {
     @Autowired
     private UserRepository userRepository;
 
-    public void insertTrip(Trip t) {
-        tripRepository.save(t);
-    }
-
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
     }
@@ -35,6 +31,10 @@ public class TripService {
             }
         }
         return travelAgencyTrips;
+    }
+
+    public void insertTrip(Trip trip) {
+        tripRepository.save(trip);
     }
 
     public List<Trip> searchTrips(String depLoc, String destLoc, String startDate, String endDate) {

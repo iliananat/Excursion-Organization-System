@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update booking">
+    <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update trip">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,6 +86,7 @@
       <workItem from="1705544581066" duration="101000" />
       <workItem from="1705544691373" duration="137000" />
       <workItem from="1705544838102" duration="17000" />
+      <workItem from="1705628632760" duration="284000" />
     </task>
     <task id="LOCAL-00001" summary="Update project structure">
       <option name="closed" value="true" />
@@ -208,7 +208,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705627405826</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Update trip">
+      <option name="closed" value="true" />
+      <created>1705628170628</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1705628170628</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,6 +233,7 @@
     <MESSAGE value="Update validation afm" />
     <MESSAGE value="Add jwt" />
     <MESSAGE value="Update booking" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update booking" />
+    <MESSAGE value="Update trip" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update trip" />
   </component>
 </project>
