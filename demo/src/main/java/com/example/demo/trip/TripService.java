@@ -1,6 +1,7 @@
 package com.example.demo.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,65 +24,29 @@ public class TripService {
         tripRepository.save(trip);
     }
 
-    public List<Trip> searchTrips(String depLoc, String destLoc, String startDate, String endDate) {
-        List<Trip> trips = tripRepository.findAll();
-        List<Trip> temp = trips;
+    public List<Trip> searchTrips(String departureLocation, String destinationLocation, LocalDate endDate, LocalDate startDate) {
+        Specification<Trip> spec = null;
+        Specification<Trip> specification1 = TripSpecifications.withDepartureLocation(departureLocation);
+        Specification<Trip> specification2 = TripSpecifications.withDestinationLocation(destinationLocation);
+        Specification<Trip> specification3 = TripSpecifications.withEndDate(endDate);
+        Specification<Trip> specification4 = TripSpecifications.withStartDate(startDate);
+
+        if (departureLocation != null) {
+            spec = Specification.where(specification1);
+        }
+
+        if (destinationLocation != null) {
+            spec = (spec == null) ? Specification.where(specification2) : spec.and(specification2);
+        }
+
+        if (endDate != null) {
+            spec = (spec == null) ? Specification.where(specification3) : spec.and(specification3);
+        }
 
         if (startDate != null) {
-            LocalDate startdt = LocalDate.parse(startDate);
-            int index = 0;
-            while (index < temp.size()) {
-                if (!temp.get(index).getStartDate().equals(startdt)) {
-                    temp.remove(index);
-                } else {
-                    index++;
-                }
-            }
-        }
-        if (endDate != null) {
-            LocalDate enddt = LocalDate.parse(endDate);
-            int index = 0;
-            while (index < temp.size()) {
-                if (!temp.get(index).getEndDate().equals(enddt)) {
-                    temp.remove(index);
-                } else {
-                    index++;
-                }
-            }
+            spec = (spec == null) ? Specification.where(specification4) : spec.and(specification4);
         }
 
-        if (depLoc != null) {
-            int locLength = depLoc.length();
-            int index = 0;
-            while (index < temp.size()) {
-                String comp = "";
-                for (int j = 0; j < locLength; j++) {
-                    comp = comp + temp.get(index).getDepartureLocation().charAt(j);
-                }
-                if (!comp.toLowerCase().equals(depLoc.toLowerCase())) {
-                    temp.remove(index);
-                } else {
-                    index++;
-                }
-            }
-        }
-
-        if (destLoc != null) {
-            int destLength = destLoc.length();
-            int index = 0;
-            while (index < temp.size()) {
-                String comp = "";
-                for (int j = 0; j < destLength; j++) {
-                    comp = comp + temp.get(index).getDestinationLocation().charAt(j);
-                }
-                if (!comp.toLowerCase().equals(destLoc.toLowerCase())) {
-                    temp.remove(index);
-                } else {
-                    index++;
-                }
-            }
-        }
-
-        return temp;
+        return tripRepository.findAll(spec);
     }
 }

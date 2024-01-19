@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="38565998-fb84-40be-963f-6b4df70a2cf8" name="Changes" comment="Update trip">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripSpecifications.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/trip/TripRepository.java" afterDir="false" />
@@ -87,7 +88,8 @@
       <workItem from="1705544581066" duration="101000" />
       <workItem from="1705544691373" duration="137000" />
       <workItem from="1705544838102" duration="17000" />
-      <workItem from="1705628632760" duration="1578000" />
+      <workItem from="1705628632760" duration="4429000" />
+      <workItem from="1705663559691" duration="2174000" />
     </task>
     <task id="LOCAL-00001" summary="Update project structure">
       <option name="closed" value="true" />
@@ -225,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705629009896</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Update trip">
+      <option name="closed" value="true" />
+      <created>1705630303498</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1705630303498</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

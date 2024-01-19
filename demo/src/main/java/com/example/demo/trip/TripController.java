@@ -5,10 +5,13 @@ import com.example.demo.user.TravelAgency;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -35,13 +38,13 @@ public class TripController {
 
     @GetMapping(path = "/search")
     public ResponseEntity<?> searchTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
-                                  @RequestParam(required = false) String depLoc,
-                                  @RequestParam(required = false) String destLoc,
-                                  @RequestParam(required = false) String startdt,
-                                  @RequestParam(required = false) String enddt) {
+                                         @RequestParam(required = false) String departureLocation,
+                                         @RequestParam(required = false) String destinationLocation,
+                                         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                                         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null) {
-            return ResponseEntity.ok(tripService.searchTrips(depLoc, destLoc, startdt, enddt));
+            return ResponseEntity.ok(tripService.searchTrips(departureLocation, destinationLocation, endDate, startDate));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }
