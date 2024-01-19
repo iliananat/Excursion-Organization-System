@@ -4,80 +4,76 @@ import com.example.demo.user.TravelAgency;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Trip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
+	private int bookedSeats;
+	@Column(nullable = false)
+	private String departureLocation;
+	@Column(nullable = false)
+	private String destinationLocation;
+	@Column(nullable = false)
+	private LocalDate endDate;
+	@Column(nullable = false)
+	private int maximumSeats;
+	@Column(nullable = false)
+	private String schedule;
+	@Column(nullable = false)
+	private LocalDate startDate;
 	@ManyToOne
     @JoinColumn(name = "travel_agency_afm")
 	private TravelAgency travelAgency;
-	private LocalDate startDate;
-	private LocalDate endDate;
-	private String depLocation;
-	private String destLocation;
-	private String schedule;
-	private int maxNumOfParticipants;
-    private int bookedSeats = 0;
 
 	public Trip(){}
 	
-	public Trip(TravelAgency travelAgency, LocalDate startDate, LocalDate endDate, String depLocation,
-			String destLocation, String schedule, int maxNumOfParticipants) {
-		this.travelAgency = travelAgency;
-		this.startDate = startDate;
+	public Trip(String departureLocation,
+				String destinationLocation,
+				LocalDate endDate,
+				int maximumSeats,
+				String schedule,
+				LocalDate startDate,
+				TravelAgency travelAgency) {
+		this.bookedSeats = 0;
+		this.departureLocation = departureLocation;
+		this.destinationLocation = destinationLocation;
 		this.endDate = endDate;
-		this.depLocation = depLocation;
-		this.destLocation = destLocation;
+		this.maximumSeats = maximumSeats;
 		this.schedule = schedule;
-		this.maxNumOfParticipants = maxNumOfParticipants;
-	}
-	
-	public Long getID() {
-		return id;
+		this.startDate = startDate;
+		this.travelAgency = travelAgency;
 	}
 
-	public TravelAgency getTravelAgency() {
-		return travelAgency;
+	public int getAvailableSeats() {
+		return this.maximumSeats - this.bookedSeats;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public int getBookedSeats() {
+		return this.bookedSeats;
+	}
+
+	public String getDepartureLocation() {
+		return this.departureLocation;
+	}
+
+	public String getDestinationLocation() {
+		return this.destinationLocation;
 	}
 
 	public LocalDate getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
 
-	public String getDepLocation() {
-		return depLocation;
+	public TravelAgency getTravelAgency() {
+		return this.travelAgency;
 	}
 
-	public String getDestLocation() {
-		return destLocation;
-	}
-	
-	public int getAvailableSeats() {
-		return maxNumOfParticipants - bookedSeats;
-	}
-	
-	public int getBookedSeats() {
-		return bookedSeats;
-	}
-
-	public int getMaxNumOfParticipants() {
-		return maxNumOfParticipants;
-	}
-	
-	public String getSchedule() {
-		return schedule;
+	public LocalDate getStartDate() {
+		return this.startDate;
 	}
 
 	public void setBookedSeats(int bookedSeats) {

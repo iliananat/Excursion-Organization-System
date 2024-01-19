@@ -17,7 +17,7 @@ public class TripService {
     @Autowired
     private UserRepository userRepository;
 
-    public void addTrip(Trip t) {
+    public void insertTrip(Trip t) {
         tripRepository.save(t);
     }
 
@@ -70,7 +70,7 @@ public class TripService {
             while (index < temp.size()) {
                 String comp = "";
                 for (int j = 0; j < locLength; j++) {
-                    comp = comp + temp.get(index).getDepLocation().charAt(j);
+                    comp = comp + temp.get(index).getDepartureLocation().charAt(j);
                 }
                 if (!comp.toLowerCase().equals(depLoc.toLowerCase())) {
                     temp.remove(index);
@@ -86,7 +86,7 @@ public class TripService {
             while (index < temp.size()) {
                 String comp = "";
                 for (int j = 0; j < destLength; j++) {
-                    comp = comp + temp.get(index).getDestLocation().charAt(j);
+                    comp = comp + temp.get(index).getDestinationLocation().charAt(j);
                 }
                 if (!comp.toLowerCase().equals(destLoc.toLowerCase())) {
                     temp.remove(index);

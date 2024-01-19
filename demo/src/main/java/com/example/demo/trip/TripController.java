@@ -38,17 +38,6 @@ public class TripController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }
 
-    @PostMapping(path = "/addTrip")
-    public ResponseEntity<?> addTrip(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody Trip trip) {
-        User user = userService.getUserFromToken(authorizationHeader);
-        if (user != null && user.getUserType().equals("travel_agency")) {
-            trip.setTravelAgency((TravelAgency) user);
-            tripService.addTrip(trip);
-            return ResponseEntity.ok(new InfoResponse("Ολοκληρώθηκε με επιτυχία!"));
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
-    }
-
     @GetMapping(path = "/search")
     public ResponseEntity<?> searchTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
                                   @RequestParam(required = false) String depLoc,
@@ -58,6 +47,17 @@ public class TripController {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null) {
             return ResponseEntity.ok(tripService.searchTrips(depLoc, destLoc, startdt, enddt));
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<?> insertTrip(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody Trip trip) {
+        User user = userService.getUserFromToken(authorizationHeader);
+        if (user != null && user.getUserType().equals("travel_agency")) {
+            trip.setTravelAgency((TravelAgency) user);
+            tripService.insertTrip(trip);
+            return ResponseEntity.ok(new InfoResponse("Ολοκληρώθηκε με επιτυχία!"));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }
