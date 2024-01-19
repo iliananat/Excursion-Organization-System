@@ -22,6 +22,12 @@ public class TripSpecifications {
                 builder.conjunction();
     }
 
+    public static Specification<Trip> withTravelAgencyAfm(String afm) {
+        return (root, query, builder) -> afm != null ?
+                builder.equal(root.get("travelAgency").get("afm"), afm) :
+                builder.conjunction();
+    }
+
     public static Specification<Trip> withStartDate(LocalDate startDate) {
         return (root, query, builder) -> startDate != null ?
                 builder.equal(root.get("startDate"), startDate) :

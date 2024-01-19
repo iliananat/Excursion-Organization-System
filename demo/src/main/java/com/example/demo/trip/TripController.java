@@ -24,27 +24,14 @@ public class TripController {
     private TripService tripService;
 
     @GetMapping(path = "")
-    public ResponseEntity<?> getAllTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        User user = userService.getUserFromToken(authorizationHeader);
-        if (user != null) {
-            if (user.getUserType().equals("citizen")) {
-                return ResponseEntity.ok(tripService.getCitizenTrips());
-            } else {
-                return ResponseEntity.ok(tripService.getTravelAgencyTrips(user.getAfm()));
-            }
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
-    }
-
-    @GetMapping(path = "/search")
-    public ResponseEntity<?> searchTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+    public ResponseEntity<?> getTrips(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader,
                                          @RequestParam(required = false) String departureLocation,
                                          @RequestParam(required = false) String destinationLocation,
                                          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
                                          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
         User user = userService.getUserFromToken(authorizationHeader);
         if (user != null) {
-            return ResponseEntity.ok(tripService.searchTrips(departureLocation, destinationLocation, endDate, startDate));
+            return ResponseEntity.ok(tripService.getTrips(departureLocation, destinationLocation, endDate, startDate, user));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
     }

@@ -19,15 +19,6 @@ public class BookingController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "")
-    public ResponseEntity<?> getBookings(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
-        User user = userService.getUserFromToken(authorizationHeader);
-        if (user != null && user.getUserType().equals("citizen")) {
-            return ResponseEntity.ok(bookingService.getBookings(user.getAfm()));
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new InfoResponse("Απαγορεύτηκε η είσοδος"));
-    }
-
     @PostMapping(path="")
     public ResponseEntity<?> insertBooking(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody BookingRequest bookingRequest) {
         User user = userService.getUserFromToken(authorizationHeader);
